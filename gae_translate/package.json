@@ -1,0 +1,15 @@
+{
+  "name": "gae_translate",
+  "version": "1.0.0",
+  "description": "Google Cloud Translation Demo Application",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Kelvin Jin (kelvinjin@google.com)",
+  "dependencies": {
+    "@google-cloud/translate": "^1.1.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "pug": "^2.0.0-rc.4"
+  }
+}
