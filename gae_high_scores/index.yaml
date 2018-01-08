@@ -1,0 +1,8 @@
+# gcloud datastore create-indexes index.yaml
+indexes:
+
+- kind: Attempt8
+  properties:
+  - name: score
+    direction: desc
+  - name: timestamp
