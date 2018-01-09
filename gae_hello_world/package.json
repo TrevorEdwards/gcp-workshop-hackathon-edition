@@ -1,0 +1,12 @@
+{
+  "name": "gae_hello_world",
+  "version": "1.0.0",
+  "description": "Hello World!",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Kelvin Jin (kelvinjin@google.com)",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
