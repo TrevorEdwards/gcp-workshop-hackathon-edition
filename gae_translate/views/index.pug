@@ -44,12 +44,14 @@ html
           document.getElementById('error-message').innerHTML = 'Enter text';
           return;
         }
-        const payload = {
-          textToTranslate: text
-        };
+        
+        const from = 'en';
+        const to = 'es';
+
+        const requestPath = `/translate?text=${text}&from=${from}&to=${to}`;
 
         // Request translation from the server.
-        const translating = axios.post('/translate', payload, { validateStatus: () => true });
+        const translating = axios.get(requestPath, { validateStatus: () => true });
         // 'translating' is a Promise object. In other words, it represents an
         // object whose value isn't known until a later t ime. In this
         // particular case, "later" is when our request has made the round trip

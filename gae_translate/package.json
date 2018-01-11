@@ -8,8 +8,6 @@
   "author": "Kelvin Jin (kelvinjin@google.com)",
   "dependencies": {
     "@google-cloud/translate": "^1.1.0",
-    "body-parser": "^1.18.2",
-    "express": "^4.16.2",
-    "pug": "^2.0.0-rc.4"
+    "express": "^4.16.2"
   }
 }
