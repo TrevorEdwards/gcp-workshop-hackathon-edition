@@ -2,10 +2,13 @@
  * Import the modules we need to use.
  */
 
+const fs = require('fs');
+const yaml = require('js-yaml');
 const express = require('express');
 const GoogleCloudDatastore = require('@google-cloud/datastore');
-const common = require('./common');
 
+const commonYaml = fs.readFileSync('./index.yaml', { encoding: 'utf8' });
+const common = yaml.load(commonYaml);
 const PARTICIPANT_KIND = common.PARTICIPANT_KIND;
 const ATTEMPT_KIND = common.ATTEMPT_KIND;
 

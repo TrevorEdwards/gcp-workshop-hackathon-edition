@@ -1,12 +1,15 @@
+const fs = require('fs');
+const yaml = require('js-yaml');
 const GoogleCloudDatastore = require('@google-cloud/datastore');
-const common = require('./common');
 
+const commonYaml = fs.readFileSync('./index.yaml', { encoding: 'utf8' });
+const common = yaml.load(commonYaml);
 const PARTICIPANT_KIND = common.PARTICIPANT_KIND;
 const ATTEMPT_KIND = common.ATTEMPT_KIND;
 
 const datastore = new GoogleCloudDatastore();
 
-const YEARS = ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate', 'Professor'];
+const YEARS = ['freshman', 'sophomore', 'junior', 'senior', 'graduate', 'professor'];
 
 const rand = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
 
