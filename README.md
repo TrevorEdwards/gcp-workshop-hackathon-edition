@@ -15,7 +15,7 @@ For more information, see the Google Cloud Platform
 
 ### Instructions
 
-1. Navigate to [Cloud Console](console.cloud.google.com).
+1. Navigate to [Cloud Console](https://console.cloud.google.com).
 1. Sign in and create a free trial account (TODO: Can they use cornell email?). 
    If you already have used your free trial, ask a Googler for GCP
    credits.
