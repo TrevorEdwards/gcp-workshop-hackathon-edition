@@ -139,6 +139,33 @@ Now, try changing `handleHelloRequest` so that when a query parameter `name` is 
 
 #### Putting it together
 
+It's time to put these two concepts together! Try to bring the translation logic from `translate.js` into `server.js`, and change the path and expected query parameter name accordingly. You should have something that looks like this:
+
+![translate over query](doc/images/translate-query.png)
+
+##### Adding a front end
+
+Typing the translation query as part of the URL isn't very user friendly, so we've provided a simple frontend that mimics Google Translate itself, and sends the queries to your server under the hood. To include it, add the following lines to your code (after `app` is defined):
+
+```
+app.set('view engine', 'pug'); // Set the "view engine", which affects the behavior of `response.render` below.
+app.get('/', function handleIndex(request, response) {
+  response.render('index');    // When the root path is hit, sends the file at `views/index.pug` rendered into an HTML file.
+});
+```
+
+Now, try loading `http://localhost:8080/` in your browser!
+
+#### Deploy it to App Engine!
+
+The last step is to deploy your application to Google App Engine! In the same directory, simply type:
+
+```bash
+gcloud app deploy
+```
+
+This will take some time, but when it's done your app should be able to be accessed at `https://[your-project-id].appspot.com`!
+
 ## WORKSHOP: Google Cloud Functions - Adding Numbers
 
 ### Description
