@@ -17,9 +17,9 @@ In this workshop, you will create a Google Cloud Platform project. A project org
 ![Free Trial](https://github.com/TrevorEdwards/gcp-workshop/blob/master/create-project/free-trial.png)
 If you would like, you can sign up for this free trial. Doing this will require a credit card for identification purposes.
 1. If you cannot or do not wish to activate the free trial, ask a Googler for a credit key.
-1. Pick a name for your GCP project with the prefix 'gcp-cornell-'. For example, 'gcp-cornell-foo'.
+1. Pick a name for your GCP project with the prefix 'cornell-gcp-2018sp-'. For example, 'cornell-gcp-2018sp-foo'.
 1. Follow the instructions at the top of [this](https://cloud.google.com/resource-manager/docs/creating-managing-projects) page to create a Google Cloud Platform project with the name you picked.
-1. At the [homepage](https://console.cloud.google.com) of GCP, note your project id which may be different from your project name. Submit this project id (e.g. 'gcp-cornell-foo-115671') on [this](https://goo.gl/forms/4YF8jiP5kX9r8lNp2) form.
+1. At the [homepage](https://console.cloud.google.com) of GCP, note your project id which may be different from your project name. Submit this project id (e.g. 'cornell-gcp-2018sp-115671') on [this](https://goo.gl/forms/4YF8jiP5kX9r8lNp2) form.
 
 ## WORKSHOP: Google Cloud Translate API in Node.js
 
