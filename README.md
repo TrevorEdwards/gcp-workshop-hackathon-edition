@@ -1,25 +1,25 @@
 # Google Cloud Platform Workshop
 
-This repository contains workshops for Google Cloud Platform.
-
-TODO: Guide to use this repo, overview of directories and links.
+This repository contains workshops as part of a presentation on Google Cloud Platform. Use this README to follow along with the workshops.
 
 ## WORKSHOP: Setting up a project
 
 ### Description
 
-In this workshop, you will create a Google Cloud Platform project. A project is
-
-For more information, see the Google Cloud Platform
-[documentation](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
+In this workshop, you will create a Google Cloud Platform project. A project organizes all your Google Cloud Platform resources.
 
 ### Instructions
 
 1. Navigate to [Cloud Console](https://console.cloud.google.com).
-1. Sign in and create a free trial account (TODO: Can they use cornell email?). 
-   If you already have used your free trial, ask a Googler for GCP
-   credits.
-1. TODO: the rest of the instructions
+1. Sign in with a personal or @cornell.edu account.
+1. If you already have an active Google Cloud Platform trial or credit, skip ahead to step 6.
+1. If you have not activated a free trial, you should see the following image:
+![Free Trial](https://github.com/TrevorEdwards/gcp-workshop/blob/master/create-project/free-trial.png)
+If you would like, you can sign up for this free trial. Doing this will require a credit card for identification purposes.
+1. If you cannot or do not wish to activate the free trial, ask a Googler for a credit key.
+1. Pick a name for your GCP project with the prefix 'gcp-cornell-'. For example, 'gcp-cornell-foo'.
+1. Follow the instructions at the top of [this](https://cloud.google.com/resource-manager/docs/creating-managing-projects) page to create a Google Cloud Platform project with the name you picked.
+1. At the [homepage](https://console.cloud.google.com) of GCP, note your project id which may be different from your project name. Submit this project id (e.g. 'gcp-cornell-foo-115671') on [this](https://goo.gl/forms/4YF8jiP5kX9r8lNp2) form.
 
 ## WORKSHOP: Google Cloud Translate API in Node.js
 
