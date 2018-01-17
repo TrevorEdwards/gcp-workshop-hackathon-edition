@@ -2,6 +2,15 @@
 
 This repository contains workshops as part of a presentation on Google Cloud Platform. Use this README to follow along with the workshops.
 
+## Prerequisites:
+
+Google Cloud Platform provides an awesome feature called [Cloud Shell](https://cloud.google.com/shell/) which is a lightweight web shell that includes dependencies like the Cloud SDK and Node.js.
+
+If you are uncomfortable working and editing in the shell, you will need to install the following to complete this workshop:
+
+- [Node.js](https://nodejs.org/)
+- [Cloud SDK](https://cloud.google.com/sdk/downloads)
+
 ## WORKSHOP: Setting up a project
 
 ### Description
