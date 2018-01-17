@@ -9,7 +9,9 @@ Google Cloud Platform provides an awesome feature called [Cloud Shell](https://c
 If you are uncomfortable working and editing in the shell, you will need to install the following to complete this workshop:
 
 - [Node.js](https://nodejs.org/)
+  - This adds `node` and `npm` (Node Package Manager) to the command line.
 - [Cloud SDK](https://cloud.google.com/sdk/downloads)
+  - This adds `gcloud` to the command line.
 
 ## WORKSHOP: Setting up a project
 
@@ -34,21 +36,56 @@ If you would like, you can sign up for this free trial. Doing this will require 
 
 ### Description
 
-TODO
+This workshop will take you through building a Google Translate-like web service using the Google Cloud Translate API and Node.js. You'll be able to launch your app on Google App Engine (GAE) to make it accessible anywhere!
 
 ### Instructions
 
-1. TODO
+#### Install Dependencies
 
-## WORKSHOP: Google Cloud Translate API in Node.js
+If you haven't already, clone this repository by running the following in your terminal: `git clone https://github.com/TrevorEdwards/gcp-workshop`
 
-### Description
+Next, navigate to the `gae-translate` directory in your terminal and then run `npm install` (`npm` is Node's package manager) to install the dependencies you'll need for this application:
+
+```sh
+cd gcp-workshop/gae-translate
+npm install # This installs dependencies, such as the Google Translate API, as specified by the package.json file in this directory.
+```
+
+#### Translate in the command line
+
+We've provided a skeleton [`translate.js`](gae-translate/translate.js) script which translates a hard-coded string `'hi!'` from English to Spanish. Try it by running:
+
+```sh
+node translate.js
+```
+
+Try modifying the source code (`translate.js`) to allow the script to accept a message to translate through the command line. For example:
+
+```sh
+node translate.js "i'm using google translate"
+# Prints "estoy usando el traductor de google"
+# Keep in mind that in most shells you can't use an exclamation (!)
+```
+
+As a hint, [Node provides the command line arguments as an array `process.argv`.](https://gist.github.com/kjin/bca38eeec9daec4da1431ac7c0ce4b2f)
+
+#### Run a basic web server
+
+Along with the script above, there's also a basic web server [`server.js`](gae-translate/server.js) in the same directory. Try running it:
+
+```sh
+node server.js
+```
+
+Note that this time, the script doesn't exit immediately. That's because it's running a web server! To see it in action, open up your favorite browser and navigate to `http://localhost:8080/hello`:
+
+(TODO: Add image here)
+
+Now, open `server.js` in your favorite editor to see what's happening!
+
+##### Accept inputs through the web server
 
 TODO
-
-### Instructions
-
-1. TODO
 
 ## WORKSHOP: Google Cloud Functions - Adding Numbers
 
