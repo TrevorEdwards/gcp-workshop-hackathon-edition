@@ -79,13 +79,65 @@ node server.js
 
 Note that this time, the script doesn't exit immediately. That's because it's running a web server! To see it in action, open up your favorite browser and navigate to `http://localhost:8080/hello`:
 
-(TODO: Add image here)
+![hello world server screencap](doc/images/hello-world-server.png)
 
 Now, open `server.js` in your favorite editor to see what's happening!
 
-##### Accept inputs through the web server
+#### Accept inputs through the web server
 
-TODO
+Observe the request handler in `server.js`:
+
+```js
+function handleHelloRequest(request, response) {
+  response.send('Hello World!');
+}
+```
+
+This function runs every time someone hits the `/hello` path on your web server. It gets passed two objects -- a request object, which contains information about the incoming request, and a response object, which contains methods to manipulate the response given back to the user. Right now, we send a hard-coded string back, and ignore `request` entirely. Let's try changing this so that we can accept user input.
+
+One possible way for web servers to accept user input is through _query parameters_. Consider what happens when you search for something on Google:
+
+![google search screencap](doc/images/google-search.png)
+
+The URL you get redirected to contains the information sent to Google to perform the search. Anything that comes after the `https://www.google.com/search?` part of the URL is the query parameter. It's fairly complicated, but if you crop out the non-essential information it really just boils down to:
+
+```
+https://www.google.com/search?q=google+cloud+platform
+```
+
+The query parameter in this case is a simple key-value mapping, equivalent to:
+
+```js
+{
+  q: 'google+cloud+platform'
+}
+```
+
+The query parameters in your application are accessible through the field `request.query`:
+
+```js
+function handleHelloRequest(request, response) {
+  console.log(request.query);
+  response.send('Hello World!');
+}
+```
+
+If you restart your server and try navigating to `http://localhost:8080/hello?name=kj`, which contains a query parameter, observe what gets printed in the console:
+
+```js
+// This gets printed when you hit http://localhost:8080/hello?name=kj in your browser
+{ name: 'kj' }
+// An empty object gets printed if you don't specify a query parameter (http://localhost:8080/hello)
+{}
+// You can have multiple query parameters separated by & (http://localhost:8080/hello?name=kj&company=google)
+{ name: 'kj', company: 'google' }
+```
+
+Now, try changing `handleHelloRequest` so that when a query parameter `name` is specified, respond with "Hello, [name]!". Be sure to cover the case where there isn't a query parameter!
+
+![hello, kj!](doc/images/hello-kj.png)
+
+#### Putting it together
 
 ## WORKSHOP: Google Cloud Functions - Adding Numbers
 
