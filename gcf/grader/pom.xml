@@ -20,8 +20,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.example</groupId>
-  <artifactId>word-count-beam</artifactId>
+  <groupId>com.google.cloud</groupId>
+  <artifactId>gcp-workshop</artifactId>
   <version>0.1</version>
 
   <packaging>jar</packaging>
@@ -397,5 +397,12 @@
       <artifactId>httpclient</artifactId>
       <version>4.5.4</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud -->
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud</artifactId>
+      <version>0.8.0</version>
+    </dependency>
+
   </dependencies>
 </project>

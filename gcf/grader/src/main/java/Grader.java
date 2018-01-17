@@ -16,20 +16,21 @@
  * limitations under the License.
  */
 
+import static com.google.datastore.v1.client.DatastoreHelper.makeKey;
+
+import com.google.datastore.v1.Entity;
+import com.google.datastore.v1.Value;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.BinaryOperator;
 import org.apache.beam.runners.spark.SparkPipelineOptions;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
-import org.apache.beam.sdk.options.PipelineOptions;
+import org.apache.beam.sdk.options.Default.Long;
+import org.apache.beam.sdk.options.Description;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
-import org.apache.beam.sdk.transforms.Combine;
-import org.apache.beam.sdk.transforms.Combine.CombineFn;
 import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -43,50 +44,49 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.beam.sdk.io.gcp.datastore.DatastoreIO;
 
 public class Grader {
 
-
-  static Comparator<String> scoreSorter = new Comparator<String>() {
-    @Override
-    public int compare(String o1, String o2) {
-      int v1 = Integer.parseInt(o1.split(",")[1].trim());
-      int v2 = Integer.parseInt(o2.split(",")[1].trim());
-      return v2 - v1;
-    }
-  };
-
   public static void main(String[] args) {
-    PipelineOptionsFactory.register(SparkPipelineOptions.class);
-    PipelineOptions options = PipelineOptionsFactory.create();
+    long timestamp = System.nanoTime();
+    PipelineOptionsFactory.register(MyOptions.class);
+    MyOptions options = PipelineOptionsFactory.fromArgs(args).as(MyOptions.class);
     // This pipeline can also run with spark or dataflow:
     // options.setRunner(SparkRunner.class);
     // options.setRunner(DataflowRunner.class);
     Pipeline p = Pipeline.create(options);
+    long caseNumber = options.getCaseNumber();
     //-----------------------
 
     final PCollectionView<List<String>> testCases = p
         .apply("Read test cases",
-            TextIO.read().from("gs://trevoredwards-gcp-workshop/input/test_cases_1"))
-        .apply(View.<String>asList());
+            TextIO.read().from(
+                "gs://trevoredwards-gcp-workshop/input/test_cases_" + caseNumber))
+        .apply("Collect cases to list", View.<String>asList());
 
     p.apply("Read GCF urls", TextIO.read().from("gs://trevoredwards-gcp-workshop/input/gcf_urls"))
-        .apply("Run tests", ParDo.of(new DoFn<String, String>() {
+        .apply("Run tests", ParDo.of(new DoFn<String, Entity>() {
           @ProcessElement
           public void processElement(ProcessContext c) throws IOException {
             String gcfUrl = c.element();
             List<String> stringTestCases = c.sideInput(testCases);
-            System.out.println(gcfUrl);
-            System.out.println(stringTestCases);
-            int numberCorrect = 0;
+            String exampleBadCase = "";
+            long numberCorrect = 0;
             HttpClient httpclient = HttpClients.createDefault();
             for (String testCase : stringTestCases) {
               String[] splitCase = testCase.split(",");
+              if (splitCase.length != 3) continue;
               String solution = splitCase[splitCase.length - 1];
-              HttpPost httppost = new HttpPost(gcfUrl + "/case1");
+              HttpPost httppost = new HttpPost(gcfUrl + "/case" + caseNumber);
               ArrayList<NameValuePair> nvps = new ArrayList<>(splitCase.length - 1);
-              for (int i = 0; i < splitCase.length - 1; i++) {
-                nvps.add(new BasicNameValuePair("" + i, splitCase[i]));
+              if (caseNumber == 1) {
+                for (int i = 0; i < splitCase.length - 1; i++) {
+                  nvps.add(new BasicNameValuePair("" + i, splitCase[i]));
+                }
+              } else {
+                  nvps.add(new BasicNameValuePair("targetLanguage", splitCase[0]));
+                  nvps.add(new BasicNameValuePair("sentence", splitCase[1]));
               }
 
               httppost.setEntity(new UrlEncodedFormEntity(nvps));
@@ -100,51 +100,42 @@ public class Grader {
                   if (result.equals(solution)) {
                     numberCorrect++;
                   } else {
-                    System.out.println(
-                        String.format("Expected %s but got %s (%s)", solution, result, gcfUrl));
+                    exampleBadCase = testCase;
                   }
                 } finally {
                   inputStream.close();
                 }
               }
             }
-            c.output(String.format("%s, %d", gcfUrl, numberCorrect));
+            if (!exampleBadCase.isEmpty()) {
+              System.out.println(
+                  String.format("%s got test cases wrong, including: %s", gcfUrl, exampleBadCase));
+            }
+            c.output(Entity.newBuilder()
+                .setKey(makeKey(makeKey("ScoreEntry", "root").build(), "ScoreEntry",
+                    gcfUrl + ":" + timestamp).build())
+                .putProperties("id", Value.newBuilder().setStringValue(gcfUrl).build())
+                .putProperties("score",
+                    Value.newBuilder().setIntegerValue(numberCorrect).build())
+                .putProperties("caseNumber",
+                    Value.newBuilder().setIntegerValue(caseNumber).build())
+                .putProperties("timestamp", Value.newBuilder().setIntegerValue(timestamp).build())
+                .build());
           }
         }).withSideInputs(testCases))
-        .apply(Combine.globally(new CombineFn<String, ArrayList<String>, String>() {
-          @Override
-          public ArrayList<String> createAccumulator() {
-            return new ArrayList<>();
-          }
+        .apply("Write to Datastore", DatastoreIO.v1().write().withProjectId("carrot-cake-139920"));
 
-          @Override
-          public ArrayList<String> addInput(ArrayList<String> strings, String s) {
-            ArrayList<String> copy = new ArrayList<>(strings);
-            copy.add(s);
-            copy.sort(scoreSorter);
-            return copy;
-          }
-
-          @Override
-          public ArrayList<String> mergeAccumulators(Iterable<ArrayList<String>> iterable) {
-            ArrayList<String> output = new ArrayList<>();
-            iterable.forEach(output::addAll);
-            output.sort(scoreSorter);
-            return output;
-          }
-
-          @Override
-          public String extractOutput(ArrayList<String> strings) {
-            return strings.stream().reduce("", new BinaryOperator<String>() {
-              @Override
-              public String apply(String str, String acc) {
-                return str + "\n" + acc;
-              }
-            });
-          }
-        }))
-        .apply(TextIO.write().to("gs://trevoredwards-gcp-workshop/output/result"));
     p.run().waitUntilFinish();
+  }
+
+  interface MyOptions extends SparkPipelineOptions {
+
+    @Description("Case number")
+    @Long(1L)
+    java.lang.Long getCaseNumber();
+
+    void setCaseNumber(java.lang.Long var1);
+
   }
 
 
