@@ -15,6 +15,7 @@ In this workshop, you will create a Google Cloud Platform project. A project org
 1. If you already have an active Google Cloud Platform trial or credit, skip ahead to step 6.
 1. If you have not activated a free trial, you should see the following image:
 ![Free Trial](https://github.com/TrevorEdwards/gcp-workshop/blob/master/create-project/free-trial.png)
+
 If you would like, you can sign up for this free trial. Doing this will require a credit card for identification purposes.
 1. If you cannot or do not wish to activate the free trial, ask a Googler for a credit key.
 1. Pick a name for your GCP project with the prefix 'gcp-cornell-'. For example, 'gcp-cornell-foo'.
