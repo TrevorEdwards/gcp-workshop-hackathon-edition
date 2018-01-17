@@ -56,7 +56,7 @@ In this workshop, you will implement a simple Google Cloud Function that adds tw
 1. Test your function using the [testing tab](https://pantheon.corp.google.com/functions/details/us-central1/case1?&tab=testing) with [this](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf/problems/1/test_case_1.json) test case.
 1. Do more tests as desired. Keep an eye on the scoreboard for your project! Feel free to ask for help!
 
-## WORKSHOP: Google Cloud Functions - Edit Distance
+## WORKSHOP: Google Cloud Functions - Translate Similarity
 
 ### Description
 
