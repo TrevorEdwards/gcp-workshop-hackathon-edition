@@ -61,3 +61,4 @@ typings/
 out/
 target/
 META-INF/
+*.iml
