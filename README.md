@@ -44,10 +44,14 @@ This workshop will take you through building a Google Translate-like web service
 
 If you haven't already, clone this repository by running the following in your terminal: `git clone https://github.com/TrevorEdwards/gcp-workshop`
 
-Next, navigate to the `gae-translate` directory in your terminal and then run `npm install` (`npm` is Node's package manager) to install the dependencies you'll need for this application:
-
+Next, navigate to the `gae-translate` directory in your terminal:
 ```sh
 cd gcp-workshop/gae-translate
+```
+
+Finally, run `npm install` (`npm` is Node's package manager) to install the dependencies you'll need for this application:
+
+```sh
 npm install # This installs dependencies, such as the Google Translate API, as specified by the package.json file in this directory.
 ```
 
