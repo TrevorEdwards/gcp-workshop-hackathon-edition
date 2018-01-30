@@ -47,15 +47,18 @@ organizes all your Google Cloud Platform resources.
     project id (e.g. `cornell-gcp-2018sp-foo-115671`) on
     [this](https://goo.gl/forms/4YF8jiP5kX9r8lNp2) form.
 
-## WORKSHOP: Google Cloud Translate API in Node.js
+## WORKSHOP: Writing a Cloud Translation Service in Node.js
 
 ### Description
 
 This workshop will take you through building a Google Translate-like web service
 using the Google Cloud Translate API and Node.js. You'll be able to launch your
-app on Google App Engine (GAE) to make it accessible anywhere!
+app on Google App Engine (GAE) to deploy it to the world!
 
 ### Instructions
+
+First off: Enable the Google Cloud Translate API! Click this [link](https://console.cloud.google.com/apis/library/translate.googleapis.com)
+to go to the landing page for doing so. Make sure you're signed into your Cornell account (see top-right) and have your project selected, and then click "Enable".
 
 #### Setting up your environment
 
