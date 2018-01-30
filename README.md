@@ -57,6 +57,49 @@ app on Google App Engine (GAE) to make it accessible anywhere!
 
 ### Instructions
 
+#### Setting up your environment
+
+##### Using Cloud Shell (recommanded)
+
+For this workshop you will be using the Cloud Shell, a virtual machine that you can access directly in your browser. To open Cloud Shell, go to the [Cloud Console](https://console.cloud.google.com) and click on
+the leftmost button in the top right corner. A bash terminal should open up at the bottom.
+
+Every Google service normally requires you to authenticate using a Google account. For your applications, you can do so with a __service account__, which is a special Google account that associated with a machine rather than a person. To find out the service account that was created by default when you started your project, type the following in the terminal:
+
+```bash
+gcloud iam service-accounts list
+```
+
+You should see a single e-mail address, which looks like `cornell-gcp-2018-sp-[your project suffix]@appspot.gserviceaccount.com`. This is your service account e-mail.
+
+This service account is activated by default in Google App Engine, but for the Cloud Shell (or your own computer) you'll have to create and download the secret key (to authenticate in lieu of a password) to ensure that you have access to Cloud APIs. To do so, copy the e-mail address that you saw above, and type it as part of the following command:
+
+```bash
+gcloud iam service-accounts keys create ~/my-key.json --iam-account=[your service account e-mail]
+```
+
+This should create a file called `my-key.json` in your home directory.
+
+Finally, you'll need to make sure any apps your run on this machine knows where the key is. By default, all Google Cloud libraries will use the environmental variable `GOOGLE_APPLICATION_CREDENTIALS` to look for it. Set it to the location of your key as follows:
+
+```bash
+export GOOGLE_APPLICATION_CREDENTIALS=~/my-key.json
+```
+
+Note that if you close your terminal by accident, you might need to re-do the last command (`export (...)`) again.
+
+You've now configured your machine to work with Google Cloud!
+
+##### Using your own machine
+
+You can do all of the above with your own computer. You'll need to download [`gcloud`](https://cloud.google.com/sdk/gcloud/) first. As an extra step, you'll need to login with:
+
+```bash
+gcloud auth login
+```
+
+After that, you should be all set to continue as if you were running in the Cloud Shell in the instructions above.
+
 #### Install Dependencies
 
 If you haven't already, clone this repository by running the following in your
