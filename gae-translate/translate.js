@@ -1,17 +1,20 @@
 // Import the Google Cloud Translate module.
-const GoogleCloudTranslate = require('@google-cloud/translate');
+var GoogleCloudTranslate = require('@google-cloud/translate');
 // Create a new Translate object.
-const translate = new GoogleCloudTranslate();
+var translate = new GoogleCloudTranslate();
 // Specify languages to translate to and from
-const options = {
+var options = {
   from: 'en',
   to: 'es'
 };
 // Translate a sentence
-translate.translate('hi!', options)
-  .then(function handleTranslation(translation) {
-    console.log(translation[0]);
-  });
+translate.translate('hi!', options, function handleTranslation(err, translation) {
+  if (err) { // If there's an error, report it.
+    console.error(err);
+  } else {
+    console.log(translation);
+  }
+});
 
 // Try this!
 // $ node translate.js
