@@ -6,13 +6,13 @@
  * @param {!Object} res Cloud Function response context.
  */
 exports.helloWorld = function helloWorld(req, res) {
-  if (req.body['0'] === undefined || req.body['1'] === undefined) {
+  if (req.body['a'] === undefined || req.body['b'] === undefined) {
     // This is an error case, as "data" is required.
     res.status(400).send('No data defined!');
   } else {
     // Parse data into variables a and b.
-    a = parseInt(req.body['0']);
-    b = parseInt(req.body['1']);
+    a = req.body['a'];
+    b = req.body['b'];
 
     // ==== BEGIN IMPLEMENTATION ====
     // TODO: Add `a` and `b` and store the result in `sum`.

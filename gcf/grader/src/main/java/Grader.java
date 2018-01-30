@@ -25,7 +25,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import org.apache.beam.runners.dataflow.DataflowRunner;
 import org.apache.beam.runners.spark.SparkPipelineOptions;
+import org.apache.beam.runners.spark.SparkRunner;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.options.Default.Long;
@@ -48,35 +50,48 @@ import org.apache.beam.sdk.io.gcp.datastore.DatastoreIO;
 
 public class Grader {
 
+  private static final String INPUTS_BUCKET = "trevoredwards-gcp-workshop";
+  private static final String GRADER_PROJECT_ID = "carrot-cake-139920";
+
   public static void main(String[] args) {
     long timestamp = System.nanoTime();
-    PipelineOptionsFactory.register(MyOptions.class);
-    MyOptions options = PipelineOptionsFactory.fromArgs(args).as(MyOptions.class);
-    // This pipeline can also run with spark or dataflow:
-    // options.setRunner(SparkRunner.class);
-    // options.setRunner(DataflowRunner.class);
-    Pipeline p = Pipeline.create(options);
+    PipelineOptionsFactory.register(GraderOptions.class);
+    GraderOptions options = PipelineOptionsFactory.fromArgs(args).as(GraderOptions.class);
+    String runner = System.getenv("RUNNER");
+    if (runner == null) {
+      runner = "";
+    }
+    switch (runner) {
+      case "Spark":
+        options.setRunner(SparkRunner.class);
+        break;
+      case "Dataflow":
+        options.setRunner(DataflowRunner.class);
+        break;
+      default: // already direct
+    }
     long caseNumber = options.getCaseNumber();
-    //-----------------------
-
+    Pipeline p = Pipeline.create(options);
     final PCollectionView<List<String>> testCases = p
         .apply("Read test cases",
             TextIO.read().from(
                 "gs://trevoredwards-gcp-workshop/input/test_cases_" + caseNumber))
         .apply("Collect cases to list", View.<String>asList());
 
-    p.apply("Read GCF urls", TextIO.read().from("gs://trevoredwards-gcp-workshop/input/gcf_urls"))
+    p.apply("Read GCF urls", TextIO.read().from("gs://" + INPUTS_BUCKET + "/input/gcf_urls"))
         .apply("Run tests", ParDo.of(new DoFn<String, Entity>() {
           @ProcessElement
           public void processElement(ProcessContext c) throws IOException {
-            String gcfUrl = c.element();
+            String gcfUrl = "https://" + c.element() + ".cloudfunctions.net";
             List<String> stringTestCases = c.sideInput(testCases);
             String exampleBadCase = "";
             long numberCorrect = 0;
             HttpClient httpclient = HttpClients.createDefault();
             for (String testCase : stringTestCases) {
               String[] splitCase = testCase.split(",");
-              if (splitCase.length != 3) continue;
+              if (splitCase.length != 3) {
+                continue;
+              }
               String solution = splitCase[splitCase.length - 1];
               HttpPost httppost = new HttpPost(gcfUrl + "/case" + caseNumber);
               ArrayList<NameValuePair> nvps = new ArrayList<>(splitCase.length - 1);
@@ -85,8 +100,8 @@ public class Grader {
                   nvps.add(new BasicNameValuePair("" + i, splitCase[i]));
                 }
               } else {
-                  nvps.add(new BasicNameValuePair("targetLanguage", splitCase[0]));
-                  nvps.add(new BasicNameValuePair("sentence", splitCase[1]));
+                nvps.add(new BasicNameValuePair("targetLanguage", splitCase[0]));
+                nvps.add(new BasicNameValuePair("sentence", splitCase[1]));
               }
 
               httppost.setEntity(new UrlEncodedFormEntity(nvps));
@@ -111,6 +126,10 @@ public class Grader {
               System.out.println(
                   String.format("%s got test cases wrong, including: %s", gcfUrl, exampleBadCase));
             }
+            // TODO: Fix dependency issues so we can run on spark.
+            // c.output(Entity.builder(Key.builder(GRADER_PROJECT_ID, "ScoreEntry", gcfUrl).build())
+            //     .set("id", gcfUrl).set("score", numberCorrect).set("caseNumber", caseNumber)
+            //     .set("timestamp", timestamp).build());
             c.output(Entity.newBuilder()
                 .setKey(makeKey(makeKey("ScoreEntry", "root").build(), "ScoreEntry",
                     gcfUrl + ":" + timestamp).build())
@@ -123,12 +142,12 @@ public class Grader {
                 .build());
           }
         }).withSideInputs(testCases))
-        .apply("Write to Datastore", DatastoreIO.v1().write().withProjectId("carrot-cake-139920"));
+        .apply("Write to Datastore", DatastoreIO.v1().write().withProjectId(GRADER_PROJECT_ID));
 
     p.run().waitUntilFinish();
   }
 
-  interface MyOptions extends SparkPipelineOptions {
+  interface GraderOptions extends SparkPipelineOptions {
 
     @Description("Case number")
     @Long(1L)
