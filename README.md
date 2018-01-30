@@ -32,7 +32,7 @@ organizes all your Google Cloud Platform resources.
     ahead to step 6.
 1.  If you have not activated a free trial, you should see the following image:
     ![Free
-    Trial](https://github.com/TrevorEdwards/gcp-workshop/blob/master/create-project/free-trial.png)
+    Trial](https://github.com/TrevorEdwards/gcp-workshop/blob/master/doc/images/free-trial.png)
     If you would like, you can sign up for this free trial. Doing this will
     require a credit card for identification purposes.
 1.  If you cannot or do not wish to activate the free trial, ask a Googler for a
