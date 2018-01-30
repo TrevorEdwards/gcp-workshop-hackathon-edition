@@ -11,8 +11,8 @@ exports.helloWorld = function helloWorld(req, res) {
     res.status(400).send('No data defined!');
   } else {
     // Parse data into variables a and b.
-    a = req.body['a'];
-    b = req.body['b'];
+    a = parseInt(req.body['a']);
+    b = parseInt(req.body['b']);
 
     // ==== BEGIN IMPLEMENTATION ====
     // TODO: Add `a` and `b` and store the result in `sum`.

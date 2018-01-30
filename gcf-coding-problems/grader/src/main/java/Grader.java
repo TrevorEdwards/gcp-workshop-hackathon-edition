@@ -82,7 +82,7 @@ public class Grader {
         .apply("Run tests", ParDo.of(new DoFn<String, Entity>() {
           @ProcessElement
           public void processElement(ProcessContext c) throws IOException {
-            String gcfUrl = "https://" + c.element() + ".cloudfunctions.net";
+            String gcfUrl = "https://us-central1-" + c.element().trim() + ".cloudfunctions.net";
             List<String> stringTestCases = c.sideInput(testCases);
             String exampleBadCase = "";
             long numberCorrect = 0;
@@ -96,9 +96,8 @@ public class Grader {
               HttpPost httppost = new HttpPost(gcfUrl + "/case" + caseNumber);
               ArrayList<NameValuePair> nvps = new ArrayList<>(splitCase.length - 1);
               if (caseNumber == 1) {
-                for (int i = 0; i < splitCase.length - 1; i++) {
-                  nvps.add(new BasicNameValuePair("" + i, splitCase[i]));
-                }
+                nvps.add(new BasicNameValuePair("a", splitCase[0]));
+                nvps.add(new BasicNameValuePair("b", splitCase[1]));
               } else {
                 nvps.add(new BasicNameValuePair("targetLanguage", splitCase[0]));
                 nvps.add(new BasicNameValuePair("sentence", splitCase[1]));
@@ -115,7 +114,9 @@ public class Grader {
                   if (result.equals(solution)) {
                     numberCorrect++;
                   } else {
-                    exampleBadCase = testCase;
+                    exampleBadCase =
+                        testCase + "(Got: " + result.substring(0, Math.min(60, result.length()))
+                            + ").";
                   }
                 } finally {
                   inputStream.close();
