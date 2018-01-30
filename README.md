@@ -263,7 +263,7 @@ original sentence and its translated version.
 1.  Test your function using the [testing
     tab](https://console.cloud.google.com/functions/details/us-central1/case2?&tab=testing)
     with
-    [this](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/2/sample_input.json)
+    [this](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/2/test_case_1.json)
     test case.
 1.  Do more tests as desired. Keep an eye on the scoreboard for your project!
     Feel free to ask for help!
