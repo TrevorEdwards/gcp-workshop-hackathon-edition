@@ -24,11 +24,9 @@ organizes all your Google Cloud Platform resources.
     require a credit card for identification purposes.
 1.  If you cannot or do not wish to activate the free trial, ask a Googler for a
     credit key.
-1.  Pick a name for your GCP project with the prefix `cornell-gcp-2018sp-`. For
-    example, `cornell-gcp-2018sp-foo`.
 1.  Follow the instructions at the top of
     [this](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
-    page to create a Google Cloud Platform project with the name you picked.
+    page to create a Google Cloud Platform project. Pick a name for your GCP project with the prefix `cornell-gcp-2018sp-`.     For example, `cornell-gcp-2018sp-foo`.
 1.  At the [homepage](https://console.cloud.google.com) of GCP, note your
     project id which may be different from your project name. Submit this
     project id (e.g. `cornell-gcp-2018sp-foo-115671`) on
