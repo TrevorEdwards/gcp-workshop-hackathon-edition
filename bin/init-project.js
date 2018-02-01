@@ -79,8 +79,8 @@ const askYN = async () => {
   }
 
   console.log(`3. Enable necessary APIs.`);
-  console.log(`${indent}Did you enable Translate and App Engine Flex APIs already? [y/n, blank=y]`);
-  if (!await askYN()) {
+  console.log(`${indent}Enable Translate and App Engine Flex APIs? [y/n, blank=y]`);
+  if (await askYN()) {
     console.log(`${indent}Enabling...`);
     await gcloud(`service-management enable translate.googleapis.com`);
     await gcloud(`service-management enable appengineflex.googleapis.com`);
@@ -91,8 +91,8 @@ const askYN = async () => {
 
   const serviceAccount = 'gcp-workshop-dev';
   console.log(`4. Get a service account key.`);
-  console.log(`${indent}Did you create service account ${serviceAccount} already? [y/n, blank=y]`);
-  if (!await askYN()) {
+  console.log(`${indent}Create service account ${serviceAccount}? [y/n, blank=y]`);
+  if (await askYN()) {
     console.log(`${indent}Creating...`);
     await gcloud(`iam service-accounts create ${serviceAccount}`);
     console.log(`${indent}...done`);
