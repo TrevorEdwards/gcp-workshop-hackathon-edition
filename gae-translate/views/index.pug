@@ -12,31 +12,25 @@ html
         color: red;
       }
   body
-    h1='From English...'
-    textarea(id='untranslated-text')
-    br
+    table
+      td
+        select(id='from-language')
+        br
+        textarea(id='untranslated-text')
+      td
+        select(id='to-language')
+        br
+        textarea(id='translated-text')
     button(id='translate-button')='Translate'
-    h1='...to Spanish'
-    textarea(id='translated-text')
     p(id='error-message')
 
+    // Include axios, which makes http requests easy
     script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js')
     script.
-      // Define what we want to do when we get a response for a translation
-      // request.
-      function handleTranslatedText(serverResponse) {
-        if (serverResponse.status !== 200) {
-          document.getElementById('error-message').innerHTML = serverResponse.data;
-        } else {
-          // Populate the 'translated-text' box with the response.
-          document.getElementById('translated-text').value = serverResponse.data;
-          // Clear the error message
-          document.getElementById('error-message').innerHTML = '';
-        }
-      }
+      let languages = new Map();
 
       // Define what we want to do when we click the 'Translate' button
-      function makeTranslationRequest() {
+      async function makeTranslationRequest() {
         // The object we want to send to the server.
         const text = document.getElementById('untranslated-text').value;
         if (!text) {
@@ -45,20 +39,45 @@ html
           return;
         }
         
-        const from = 'en';
-        const to = 'es';
+        const from = document.getElementById('from-language').value;
+        const to = document.getElementById('to-language').value;
 
-        const requestPath = `/translate?text=${text}&from=${from}&to=${to}`;
+        const requestPath = `/translate?text=${escape(text)}&from=${from}&to=${to}`;
 
         // Request translation from the server.
-        const translating = axios.get(requestPath, { validateStatus: () => true });
-        // 'translating' is a Promise object. In other words, it represents an
-        // object whose value isn't known until a later t ime. In this
-        // particular case, "later" is when our request has made the round trip
-        // from our server and back.
-        translating.then(handleTranslatedText);
+        try {
+          const serverResponse = await axios.get(requestPath);
+          // Populate the 'translated-text' box with the response.
+          document.getElementById('translated-text').value = serverResponse.data;
+          // Clear the error message
+          document.getElementById('error-message').innerHTML = '';
+        } catch (err) {
+          document.getElementById('error-message').innerHTML = err;
+        }
       }
       
-      // Hook up the earlier function to our button
-      const translateButton = document.getElementById('translate-button');
-      translateButton.addEventListener('click', makeTranslationRequest);
+      async function makeListLanguagesRequest() {
+        try {
+          const serverResponse = await axios.get('/list-languages');
+          const fetchedLanguages = serverResponse.data;
+          for (let i = 0; i < fetchedLanguages.length; i++) {
+            languages.set(fetchedLanguages[i].name, fetchedLanguages[i].code);
+            for (const dropdown of ['from-language', 'to-language']) {
+              const newElement = document.createElement('option');
+              newElement.value = fetchedLanguages[i].code;
+              newElement.innerHTML = fetchedLanguages[i].name;
+              if (fetchedLanguages[i].name === 'English') {
+                newElement.selected = 'selected';
+              }
+              document.getElementById(dropdown).appendChild(newElement);
+            }
+          }
+        } catch (err) {
+          document.getElementById('error-message').innerHTML = err;
+        }
+      }
+      
+      makeListLanguagesRequest().then(() => {
+        const translateButton = document.getElementById('translate-button');
+        translateButton.addEventListener('click', makeTranslationRequest);
+      });
