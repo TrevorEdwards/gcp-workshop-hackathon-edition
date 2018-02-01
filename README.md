@@ -40,76 +40,67 @@ This workshop will take you through building a Google Translate-like web service
 using the Google Cloud Translate API and Node.js. You'll be able to launch your
 app on Google App Engine (GAE) to deploy it to the world!
 
-### Instructions
+### Environment
 
-First off: Enable the Google Cloud Translate API! Click this [link](https://console.cloud.google.com/apis/library/translate.googleapis.com)
-to go to the landing page for doing so. Make sure you're signed into your Cornell account (see top-right) and have your project selected, and then click "Enable".
+You can choose to run this either in Cloud Shell or on your own machine. If you choose to run on your own machine, follow the additional instructions under "Using your own machine".
 
-#### Setting up your environment
+If you haven't already, fork this repository first by clicking the button in the top right of this page. Then, clone it with the following command:
 
-##### Using Cloud Shell (recommended)
-
-For this workshop you will be using the Cloud Shell, a virtual machine that you can access directly in your browser. To open Cloud Shell, go to the [Cloud Console](https://console.cloud.google.com) and click on
-the leftmost button in the top right corner. A bash terminal should open up at the bottom.
-
-Every Google service normally requires you to authenticate using a Google account. For your applications, you can do so with a __service account__, which is a special Google account that associated with a machine rather than a person. To find out the service account that was created by default when you started your project, type the following in the terminal:
-
-```bash
-gcloud iam service-accounts list
+```sh
+git clone https://github.com/[your-username]/gcp-workshop
 ```
 
-You should see a single e-mail address, which looks like `cornell-gcp-2018-sp-[your project suffix]@appspot.gserviceaccount.com`. This is your service account e-mail.
+Navigate to the repository directory:
 
-This service account is activated by default in Google App Engine, but for the Cloud Shell (or your own computer) you'll have to create and download the secret key (to authenticate in lieu of a password) to ensure that you have access to Cloud APIs. To do so, copy the e-mail address that you saw above, and type it as part of the following command:
-
-```bash
-gcloud iam service-accounts keys create ~/my-key.json --iam-account=[your service account e-mail]
+```sh
+cd gcp-workshop
 ```
 
-This should create a file called `my-key.json` in your home directory.
+Run the following interactive utility to set up billing, API access, and authentication:
 
-Finally, you'll need to make sure any apps your run on this machine knows where the key is. By default, all Google Cloud libraries will use the environmental variable `GOOGLE_APPLICATION_CREDENTIALS` to look for it. Set it to the location of your key as follows:
-
-```bash
-export GOOGLE_APPLICATION_CREDENTIALS=~/my-key.json
+```sh
+./bin/init-project
 ```
 
-Note that if you close your terminal by accident, you might need to re-do the last command (`export (...)`) again.
+__NOTE:__ This utility requires Node.js.
 
-You've now configured your machine to work with Google Cloud!
+If at any time you get stuck, re-run the command and skip the steps you have already done.
+
+Don't worry if you don't completely understand what's happening here -- this is something you would normally do through the web UI. In essence, the script:
+1. Creates a new project, which is where your application will live.
+1. Links a billing account to the project, which allows you to use Google APIs.
+1. Enables the Cloud APIs necessary for this workshop.
+1. Creates a service account, which is essentially a Google account for your application, and allows it to access the APIs.
+  * As part of this step, you'll download a key which your application will automatically be made aware of. This key is used in lieu of a password for the account.
 
 ##### Using your own machine
 
-You can do all of the above with your own computer. You'll need to download [`gcloud`](https://cloud.google.com/sdk/gcloud/) first. As an extra step, you'll need to login with:
+You'll need to download [`gcloud`](https://cloud.google.com/sdk/gcloud/) first. As an extra step, you'll need to login with:
 
 ```bash
 gcloud auth login
 ```
 
+You will also need to download and install [Node.js 8](https://nodejs.org).
+
 After that, you should be all set to continue as if you were running in the Cloud Shell in the instructions above.
 
-#### Install Dependencies
+### Install Dependencies
 
-If you haven't already, fork this repository first by clicking the button in the top right of this page. Then, clone it in the cloud shell (and optionally, your local machine) with the following command:
-
-```
-git clone https://github.com/[your-username]/gcp-workshop
-```
-
-Next, navigate to the `gae-translate` directory in your terminal:
+Navigate to the `gae-translate` directory in your terminal:
 
 ```sh
-cd gcp-workshop/gae-translate
+cd gae-translate
 ```
 
-Finally, run `npm install` (`npm` is Node's package manager) to install the
+Then, run `npm install` (`npm` is Node's package manager) to install the
 dependencies you'll need for this application:
 
 ```sh
 npm install # This installs dependencies, such as the Google Translate API, as specified by the package.json file in this directory.
 ```
 
-#### Run the server
+### Run the server
 
 We've already provided most of the code for you. Start the application by typing the following at the command line:
 
@@ -121,7 +112,7 @@ This starts a long-running application that will serve browser requests on port 
 
 Though barebones, the interface should seem pretty familiar. However, there's only two languages in the drop-down menu -- English and Spanish. This is because the server is incomplete. Open up `server.js` and take a look at the code. See if you can fill in the missing part of the code (the part that fetches languages), using the other portions of the code as an example!
 
-#### Deploy the application
+### Deploy the application
 
 Once you've filled up the missing part and tinkered around with the code, it's time to deploy the application on Google App Engine. Simply type the following command:
 
