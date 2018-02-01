@@ -90,11 +90,17 @@ After that, you should be all set to continue as if you were running in the Clou
 
 #### Install Dependencies
 
-If you haven't already, clone this repository by running the following in your
-terminal: `git clone https://github.com/TrevorEdwards/gcp-workshop`
+If you haven't already, fork this repository first by clicking the button in the top right of this page. Then, clone it in the cloud shell (and optionally, your local machine) with the following command:
 
-Next, navigate to the `gae-translate` directory in your terminal: `sh cd
-gcp-workshop/gae-translate`
+```
+git clone https://github.com/[your-username]/gcp-workshop
+```
+
+Next, navigate to the `gae-translate` directory in your terminal:
+
+```sh
+cd gcp-workshop/gae-translate
+```
 
 Finally, run `npm install` (`npm` is Node's package manager) to install the
 dependencies you'll need for this application:
@@ -103,148 +109,27 @@ dependencies you'll need for this application:
 npm install # This installs dependencies, such as the Google Translate API, as specified by the package.json file in this directory.
 ```
 
-#### Translate in the command line
+#### Run the server
 
-We've provided a skeleton [`translate.js`](gae-translate/translate.js) script
-which translates a hard-coded string `'hi!'` from English to Spanish. Try it by
-running:
-
-```sh
-node translate.js
-```
-
-Try modifying the source code (`translate.js`) to allow the script to accept a
-message to translate through the command line. For example:
-
-```sh
-node translate.js "i'm using google translate"
-# Prints "estoy usando el traductor de google"
-# Keep in mind that in most shells you can't use an exclamation (!)
-```
-
-As a hint, [Node provides the command line arguments as an array
-`process.argv`.](https://gist.github.com/kjin/bca38eeec9daec4da1431ac7c0ce4b2f)
-
-#### Run a basic web server
-
-Along with the script above, there's also a basic web server
-[`server.js`](gae-translate/server.js) in the same directory. Try running it:
+We've already provided most of the code for you. Start the application by typing the following at the command line:
 
 ```sh
 node server.js
 ```
 
-Note that this time, the script doesn't exit immediately. That's because it's
-running a web server! To see it in action, open up your favorite browser and
-navigate to `http://localhost:8080/hello`:
+This starts a long-running application that will serve browser requests on port 8080 of the local machine. To see what this looks like, click the "Web Preview" button in the top right of your cloud shell -- which will automatically open up a new tab showing your running web app.
 
-![hello world server screencap](doc/images/hello-world-server.png)
+Though barebones, the interface should seem pretty familiar. However, there's only two languages in the drop-down menu -- English and Spanish. This is because the server is incomplete. Open up `server.js` and take a look at the code. See if you can fill in the missing part of the code (the part that fetches languages), using the other portions of the code as an example!
 
-Now, open `server.js` in your favorite editor to see what's happening!
+#### Deploy the application
 
-#### Accept inputs through the web server
+Once you've filled up the missing part and tinkered around with the code, it's time to deploy the application on Google App Engine. Simply type the following command:
 
-Observe the request handler in `server.js`:
-
-```js
-function handleHelloRequest(request, response) {
-  response.send('Hello World!');
-}
-```
-
-This function runs every time someone hits the `/hello` path on your web server.
-It gets passed two objects -- a request object, which contains information about
-the incoming request, and a response object, which contains methods to
-manipulate the response given back to the user. Right now, we send a hard-coded
-string back, and ignore `request` entirely. Let's try changing this so that we
-can accept user input.
-
-One possible way for web servers to accept user input is through _query
-parameters_. Consider what happens when you search for something on Google:
-
-![google search screencap](doc/images/google-search.png)
-
-The URL you get redirected to contains the information sent to Google to perform
-the search. Anything that comes after the `https://www.google.com/search?` part
-of the URL is the query parameter. It's fairly complicated, but if you crop out
-the non-essential information it really just boils down to:
-
-```
-https://www.google.com/search?q=google+cloud+platform
-```
-
-The query parameter in this case is a simple key-value mapping, equivalent to:
-
-```js
-{
-  q: 'google+cloud+platform'
-}
-```
-
-The query parameters in your application are accessible through the field
-`request.query`:
-
-```js
-function handleHelloRequest(request, response) {
-  console.log(request.query);
-  response.send('Hello World!');
-}
-```
-
-If you restart your server and try navigating to
-`http://localhost:8080/hello?name=kj`, which contains a query parameter, observe
-what gets printed in the console:
-
-```js
-// This gets printed when you hit http://localhost:8080/hello?name=kj in your browser
-{ name: 'kj' }
-// An empty object gets printed if you don't specify a query parameter (http://localhost:8080/hello)
-{}
-// You can have multiple query parameters separated by & (http://localhost:8080/hello?name=kj&company=google)
-{ name: 'kj', company: 'google' }
-```
-
-Now, try changing `handleHelloRequest` so that when a query parameter `name` is
-specified, respond with "Hello, [name]!". Be sure to cover the case where there
-isn't a query parameter!
-
-![hello, kj!](doc/images/hello-kj.png)
-
-#### Putting it together
-
-It's time to put these two concepts together! Try to bring the translation logic
-from `translate.js` into `server.js`, and change the path and expected query
-parameter name accordingly. You should have something that looks like this:
-
-![translate over query](doc/images/translate-query.png)
-
-##### Adding a front end
-
-Typing the translation query as part of the URL isn't very user friendly, so
-we've provided a simple frontend that mimics Google Translate itself, and sends
-the queries to your server under the hood. To include it, add the following
-lines to your code (after `app` is defined):
-
-```
-app.set('view engine', 'pug'); // Set the "view engine", which affects the behavior of `response.render` below.
-app.get('/', function handleIndex(request, response) {
-  response.render('index');    // When the root path is hit, sends the file at `views/index.pug` rendered into an HTML file.
-});
-```
-
-Now, try loading `http://localhost:8080/` in your browser!
-
-#### Deploy it to App Engine!
-
-The last step is to deploy your application to Google App Engine! In the same
-directory, simply type:
-
-```bash
+```sh
 gcloud app deploy
 ```
 
-This will take some time, but when it's done your app should be able to be
-accessed at `https://[your-project-id].appspot.com`!
+It'll take a few minutes, but in the end you'll see your application deployed to a real production environment!
 
 ## WORKSHOP: Google Cloud Functions - Adding Numbers
 
