@@ -47,7 +47,7 @@ to go to the landing page for doing so. Make sure you're signed into your Cornel
 
 #### Setting up your environment
 
-##### Using Cloud Shell (recommanded)
+##### Using Cloud Shell (recommended)
 
 For this workshop you will be using the Cloud Shell, a virtual machine that you can access directly in your browser. To open Cloud Shell, go to the [Cloud Console](https://console.cloud.google.com) and click on
 the leftmost button in the top right corner. A bash terminal should open up at the bottom.

@@ -5,10 +5,10 @@
 // Import the "express" module.
 var express = require('express');
 // Import the Google Cloud Translate library.
-var GoogleCloudTranslate = require('@google-cloud/translate');
+var Translate = require('@google-cloud/translate');
 
 // Do some initialization.
-var translateService = new GoogleCloudTranslate();
+var translateService = new Translate();
 var app = express();
 app.set('view engine', 'pug');
 
@@ -53,8 +53,10 @@ app.get('/translate', function handleTranslate(request, response) {
 
 app.get('/list-languages', function handleListLanguages(request, response) {
   /**
-   * EXERCISE -- Use translateService.getLanguages to respond with a list of
-   * languages.
+   * EXERCISE -- Use translateService.getLanguages to get the list of languages
+   * supported by Google Cloud Translate, and respond with that list of
+   * languages. Docs:
+   * https://cloud.google.com/nodejs/docs/reference/translate/1.1.x/Translate
    */
   response.send([
     { code: 'en', name: 'English' },
