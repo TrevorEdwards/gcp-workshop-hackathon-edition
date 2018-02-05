@@ -60,6 +60,9 @@ const askYN = async () => {
     project = await gcloud('config get-value project', {}, true);
     console.log(`${indent}Using project ${project}.`);
   }
+  console.log(chalk.green(`${indent}>>> Please fill out this form https://goo.gl/forms/4YF8jiP5kX9r8lNp2 <<<`));
+  console.log(chalk.green(`${indent}>>> with your project ID if you haven't already. [press enter]       <<<`));
+  await ask();
 
   console.log(`2. Set up the billing account.`);
   console.log(`${indent}Showing billing accounts:`);
@@ -67,8 +70,7 @@ const askYN = async () => {
   console.log(`${indent}Select the ID of the billing account to apply to the project (leave blank to skip):`);
   const billingId = await ask();
   if (billingId) {
-    console.log(`${indent}Apply billing account ${billingID} to ${project}? [y/n, blank=y]`);
-    const answer = await ask();
+    console.log(`${indent}Apply billing account ${billingId} to ${project}? [y/n, blank=y]`);
     if (await askYN()) {
       console.log(`${indent}Applying...`);
       await gcloud(`beta billing projects link ${project}`, { 'billing-account': billingId });
