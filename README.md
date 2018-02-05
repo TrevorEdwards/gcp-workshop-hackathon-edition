@@ -27,7 +27,7 @@ organizes all your Google Cloud Platform resources.
 
 ### Environment
 
-You can choose to run this either in Cloud Shell or on your own machine. If you choose to run on your own machine, follow the additional instructions under "Using your own machine".
+You can choose to run this either in Cloud Shell __(recommended)__ or on your own machine. If you choose to run on your own machine, follow the additional instructions under "Using your own machine".
 
 If you haven't already, fork this repository first by clicking the button in the top right of this page. Then, clone it with the following command:
 
