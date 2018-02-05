@@ -23,7 +23,7 @@ organizes all your Google Cloud Platform resources.
     If you would like, you can sign up for this free trial. Doing this will
     require a credit card for identification purposes.
 1.  If you cannot or do not wish to activate the free trial, ask a Googler for a
-    credit key.
+    credit key and redeem it [here](https://console.cloud.google.com/education).
 
 ### Environment
 
