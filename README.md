@@ -70,10 +70,6 @@ You will also need to download and install [Node.js 8](https://nodejs.org).
 
 After that, you should be all set to continue as if you were running in the Cloud Shell in the instructions above.
 
-### Fill out this form
-
-The script will automatically prompt you for this, but in case you missed it -- please fill out [this form](https://goo.gl/forms/4YF8jiP5kX9r8lNp) with your project ID!
-
 ## WORKSHOP: Writing a Cloud Translation Service in Node.js
 
 ### Description
