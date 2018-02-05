@@ -1,11 +1,5 @@
-const fs = require('fs');
-const yaml = require('js-yaml');
+const { ATTEMPT_KIND, PARTICIPANT_KIND } = require('./constants');
 const GoogleCloudDatastore = require('@google-cloud/datastore');
-
-const commonYaml = fs.readFileSync('./index.yaml', { encoding: 'utf8' });
-const common = yaml.load(commonYaml);
-const PARTICIPANT_KIND = common.PARTICIPANT_KIND;
-const ATTEMPT_KIND = common.ATTEMPT_KIND;
 
 const datastore = new GoogleCloudDatastore();
 

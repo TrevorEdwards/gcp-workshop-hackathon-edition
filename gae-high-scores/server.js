@@ -2,21 +2,15 @@
  * Import the modules we need to use.
  */
 
-const fs = require('fs');
-const yaml = require('js-yaml');
+const { ATTEMPT_KIND, PARTICIPANT_KIND } = require('./constants');
 const express = require('express');
-const GoogleCloudDatastore = require('@google-cloud/datastore');
-
-const commonYaml = fs.readFileSync('./index.yaml', { encoding: 'utf8' });
-const common = yaml.load(commonYaml);
-const PARTICIPANT_KIND = common.PARTICIPANT_KIND;
-const ATTEMPT_KIND = common.ATTEMPT_KIND;
+const Datastore = require('@google-cloud/datastore');
 
 /**
  * Database connect
  */
 
-const datastore = new GoogleCloudDatastore();
+const datastore = new Datastore();
 
 /**
  * Server setup
@@ -27,8 +21,6 @@ const port = process.env.PORT || 8080;
 // Create a server
 const app = express();
 app.set('view engine', 'pug');
-
-
 
 app.get('/', function (request, response) {
   response.render('index');
@@ -52,7 +44,7 @@ app.get('/topScores', async function (request, response) {
     results = results.map(function mapResult(result) {
       return {
         id: result.id,
-        year: dict[result.id].year,
+        year: (dict[result.id] || { year: 'unknown' }).year,
         score: result.score,
         timestamp: result.timestamp
       };

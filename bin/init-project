@@ -1,0 +1,9 @@
+#!/bin/bash
+
+pushd $(dirname "${BASH_SOURCE[0]}")
+echo ">>> Installing dependencies..."
+npm install
+echo ">>> Running project init utility"
+node init-project.js
+echo ""
+popd
