@@ -11,7 +11,7 @@ be added as we progress through the workshop.
 In this workshop, you will create a Google Cloud Platform project. A project
 organizes all your Google Cloud Platform resources.
 
-### Instructions
+### Set up Billing
 
 1.  Navigate to [Cloud Console](https://console.cloud.google.com).
 1.  Sign in with a personal or @cornell.edu account.
@@ -24,18 +24,6 @@ organizes all your Google Cloud Platform resources.
     require a credit card for identification purposes.
 1.  If you cannot or do not wish to activate the free trial, ask a Googler for a
     credit key.
-1.  At the [homepage](https://console.cloud.google.com) of GCP, note your
-    project id which may be different from your project name. Submit this
-    project id (e.g. `cornell-gcp-2018sp-foo-115671`) on
-    [this](https://goo.gl/forms/4YF8jiP5kX9r8lNp2) form.
-
-## WORKSHOP: Writing a Cloud Translation Service in Node.js
-
-### Description
-
-This workshop will take you through building a Google Translate-like web service
-using the Google Cloud Translate API and Node.js. You'll be able to launch your
-app on Google App Engine (GAE) to deploy it to the world!
 
 ### Environment
 
@@ -81,6 +69,18 @@ gcloud auth login
 You will also need to download and install [Node.js 8](https://nodejs.org).
 
 After that, you should be all set to continue as if you were running in the Cloud Shell in the instructions above.
+
+### Fill out this form
+
+The script will automatically prompt you for this, but in case you missed it -- please fill out [this form](https://goo.gl/forms/4YF8jiP5kX9r8lNp) with your project ID!
+
+## WORKSHOP: Writing a Cloud Translation Service in Node.js
+
+### Description
+
+This workshop will take you through building a Google Translate-like web service
+using the Google Cloud Translate API and Node.js. You'll be able to launch your
+app on Google App Engine (GAE) to deploy it to the world!
 
 ### Install Dependencies
 
