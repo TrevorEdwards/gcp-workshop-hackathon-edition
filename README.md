@@ -71,11 +71,11 @@ Don't worry if you don't completely understand what's happening here -- this is 
 1. Links a billing account to the project, which allows you to use Google APIs.
 1. Enables the Cloud APIs necessary for this workshop.
 1. Creates a service account, which is essentially a Google account for your application, and allows it to access the APIs.
-  * As part of this step, you'll download a key which your application will automatically be made aware of. This key is used in lieu of a password for the account.
+    * As part of this step, you'll download a key which your application will automatically be made aware of. This key is used in lieu of a password for the account.
 
-##### Using your own machine
+#### Using your own machine
 
-You'll need to download [`gcloud`](https://cloud.google.com/sdk/gcloud/) first. As an extra step, you'll need to login with:
+Before doing the above, you'll need to download [`gcloud`](https://cloud.google.com/sdk/gcloud/) first. As an extra step, you'll need to login with:
 
 ```bash
 gcloud auth login
@@ -110,7 +110,9 @@ node server.js
 
 This starts a long-running application that will serve browser requests on port 8080 of the local machine. To see what this looks like, click the "Web Preview" button in the top right of your cloud shell -- which will automatically open up a new tab showing your running web app.
 
-Though barebones, the interface should seem pretty familiar. However, there's only two languages in the drop-down menu -- English and Spanish. This is because the server is incomplete. Open up `server.js` and take a look at the code. See if you can fill in the missing part of the code (the part that fetches languages), using the other portions of the code as an example!
+Though barebones, the interface should seem [pretty familiar](https://translate.google.com/). However, there's only two languages in the drop-down menu -- English and Spanish. This is because the server implementation is incomplete. Open up `server.js` and take a look at the code. See if you can fill in the missing part of the code (the part that fetches languages), using the other portions of the code as an example!
+
+_Hint:_ Using your browser's developer console can be helpful for figuring out what exactly is happening under the hood. In Chrome, you can open it by right-clicking anywhere on the web page, clicking, "Inspect", and then changing to the "Sources" or "Network" tab in the console.
 
 ### Deploy the application
 
@@ -121,6 +123,8 @@ gcloud app deploy
 ```
 
 It'll take a few minutes, but in the end you'll see your application deployed to a real production environment!
+
+__Why this works:__ A configuration file named `app.yaml` sits in your working directory. This is the config file used for Google App Engine. It contains just enough information for App Engine to know that you want to use Node.js (`runtime`) on App Engine Flex, the Docker-based version of App Engine (`flex`). See [this page](https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml) for more details.
 
 ## WORKSHOP: Google Cloud Functions - Adding Numbers
 
