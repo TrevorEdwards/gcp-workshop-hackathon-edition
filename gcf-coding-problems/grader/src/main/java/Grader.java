@@ -89,7 +89,7 @@ public class Grader {
             HttpClient httpclient = HttpClients.createDefault();
             for (String testCase : stringTestCases) {
               String[] splitCase = testCase.split(",");
-              if (splitCase.length != 3) {
+              if (splitCase.length < 3) {
                 continue;
               }
               String solution = splitCase[splitCase.length - 1];
@@ -98,6 +98,7 @@ public class Grader {
               if (caseNumber == 1) {
                 nvps.add(new BasicNameValuePair("a", splitCase[0]));
                 nvps.add(new BasicNameValuePair("b", splitCase[1]));
+                nvps.add(new BasicNameValuePair("operator", splitCase[2]));
               } else {
                 nvps.add(new BasicNameValuePair("targetLanguage", splitCase[0]));
                 nvps.add(new BasicNameValuePair("sentence", splitCase[1]));

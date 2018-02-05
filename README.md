@@ -259,7 +259,7 @@ original sentence and its translated version.
     [template](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/2/index_template.js).
 1.  Replace the existing `package.json` with this
     [template](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/2/package_template.json).
-1.  Implement all three TODOs in `index.js`.
+1.  Implement all four TODOs in `index.js`.
 1.  Test your function using the [testing
     tab](https://console.cloud.google.com/functions/details/us-central1/case2?&tab=testing)
     with
