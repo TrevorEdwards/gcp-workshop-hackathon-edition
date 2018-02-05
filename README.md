@@ -16,7 +16,7 @@ organizes all your Google Cloud Platform resources.
 1.  Navigate to [Cloud Console](https://console.cloud.google.com).
 1.  Sign in with a personal or @cornell.edu account.
 1.  If you already have an active Google Cloud Platform trial or credit, skip
-    ahead to step 6.
+    ahead to the "Environment" section.
 1.  If you have not activated a free trial, you should see the following image:
     ![Free
     Trial](https://github.com/TrevorEdwards/gcp-workshop/blob/master/doc/images/free-trial.png)
