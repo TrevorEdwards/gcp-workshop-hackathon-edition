@@ -19,15 +19,19 @@ organizes all your Google Cloud Platform resources.
     ahead to the "Environment" section.
 1.  If you have not activated a free trial, you should see the following image:
     ![Free
-    Trial](https://github.com/TrevorEdwards/gcp-workshop/blob/master/doc/images/free-trial.png)
+    Trial](./doc/images/free-trial.png)
     If you would like, you can sign up for this free trial. Doing this will
     require a credit card for identification purposes.
 1.  If you cannot or do not wish to activate the free trial, ask a Googler for a
-    credit key and redeem it [here](https://console.cloud.google.com/education).
+    credit key and redeem it [here](https://console.cloud.google.com/education). _Make sure you are applying it to your @cornell.edu account!_
 
 ### Environment
 
 You can choose to run this either in Cloud Shell __(recommended)__ or on your own machine. If you choose to run on your own machine, follow the additional instructions under "Using your own machine".
+
+Navigate to Cloud Shell by clicking on the following button (outlined in red) in the Cloud Console:
+
+![cloud shell](./doc/images/gcp-top-bar.png)
 
 If you haven't already, fork this repository first by clicking the button in the top right of this page. Then, clone it with the following command:
 
@@ -101,7 +105,11 @@ We've already provided most of the code for you. Start the application by typing
 node server.js
 ```
 
-This starts a long-running application that will serve browser requests on port 8080 of the local machine. To see what this looks like, click the "Web Preview" button in the top right of your cloud shell -- which will automatically open up a new tab showing your running web app.
+This starts a long-running application that will serve browser requests on port 8080 of the local machine. To see what this looks like, click the "Web Preview" button in the top right of your cloud shell (outlined in red in the below image) -- which will automatically open up a new tab showing your running web app.
+
+![web preview](./doc/images/cloud-shell-top-bar.png)
+
+(If you have the menu on the left of the screen open, you will have to minimize it before you can see this icon.)
 
 Though barebones, the interface should seem [pretty familiar](https://translate.google.com/). However, there's only two languages in the drop-down menu -- English and Spanish. This is because the server implementation is incomplete. Open up `server.js` and take a look at the code. See if you can fill in the missing part of the code (the part that fetches languages), using the other portions of the code as an example!
 
