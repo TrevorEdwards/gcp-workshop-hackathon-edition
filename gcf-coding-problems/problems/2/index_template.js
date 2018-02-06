@@ -22,7 +22,7 @@ exports.helloWorld = function helloWorld(req, res) {
       req.body['sequence'][i] = parseInt(req.body['sequence'][i]);
     // ==== BEGIN IMPLEMENTATION ====
     // TODO(1/2): Get sequence from the body and replace the statement below.
-    sequence = [1,2,3];
+    const sequence = [1,2,3];
 
     // TODO(2/2): Calculate the number of triplets and store the result in `result`.
 

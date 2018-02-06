@@ -22,9 +22,9 @@ exports.helloWorld = function helloWorld(req, res) {
   } else {
     console.log('Initial request:', sentence, targetLanguage);
     // Parse data into variables.
-    targetLanguage = req.body['targetLanguage'];
+    const targetLanguage = req.body['targetLanguage'];
     // TODO(1/4): Retrieve the input `sentence` from the request body.
-    sentence = 'hello, world!';
+    const sentence = 'hello, world!';
 
     // TODO(2/4): Implement the calculateSimilarity function which takes two strings
     // and returns the number of indices for which they share the same character.
