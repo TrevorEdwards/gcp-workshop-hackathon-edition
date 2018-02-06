@@ -41,13 +41,18 @@ const askYN = async () => {
 }
 
 (async()=>{
+  console.log(chalk.blue(`${indent}*** Checking to see if you already made a project. ***`));
+  let project = await gcloud('config get-value project', {}, true);
   console.log(`1. Create a project and set it as the default project.`);
-  console.log(`${indent}Enter a project suffix (leave blank to skip and use currently set project):`);
-  const suffix = await ask();
-  let project;
-  if (suffix) {
+  if (!project || !project.startsWith('cornell-gcp-2018sp-')) {
+    console.log(`${indent}Your project ID will be of the form "cornell-gcp-2018sp-(suffix)"`);
+    let suffix;
+    while (!suffix) {
+      console.log(`${indent}Enter a project suffix:`);
+      suffix = await ask();
+    }
     project = `cornell-gcp-2018sp-${suffix}`;
-    console.log(`${indent}Create project ${project}? [y/n, blank=y]`);
+    console.log(`${indent}Create project "${project}"? [y/n, blank=y]`);
     if (await askYN()) {
       console.log(`${indent}Creating project ${project}...`);
       await gcloud(`projects create ${project}`);
@@ -57,59 +62,58 @@ const askYN = async () => {
       return;
     }
   } else {
-    project = await gcloud('config get-value project', {}, true);
-    console.log(`${indent}Using project ${project}.`);
+    console.log(`${indent}Using existing project "${project}".`);
   }
   console.log(chalk.green(`${indent}>>> Please fill out this form https://goo.gl/forms/4YF8jiP5kX9r8lNp2 <<<`));
   console.log(chalk.green(`${indent}>>> with your project ID if you haven't already. [press enter]       <<<`));
   await ask();
 
   console.log(`2. Set up the billing account.`);
-  console.log(`${indent}Showing billing accounts:`);
+  console.log(chalk.blue(`${indent}*** Listing your billing accounts. ***`));
   await gcloud(`beta billing accounts list`);
-  console.log(`${indent}Select the ID of the billing account to apply to the project (leave blank to skip):`);
+  console.log(`${indent}The above command listed the billing accounts associated with your account.`);
+  console.log(`${indent}If there are none, please follow the instructions in the README to create an account.`);
+  console.log(`${indent}Type the ID of the billing account to apply to the project (leave blank to skip):`);
   const billingId = await ask();
   if (billingId) {
     console.log(`${indent}Apply billing account ${billingId} to ${project}? [y/n, blank=y]`);
     if (await askYN()) {
-      console.log(`${indent}Applying...`);
+      console.log(chalk.blue(`${indent}*** Applying... ***`));
       await gcloud(`beta billing projects link ${project}`, { 'billing-account': billingId });
-      console.log(`${indent}...done.`);
+      console.log(chalk.blue(`${indent}*** ...done. ***`));
     } else {
       return;
     }
   }
 
-  console.log(`3. Enable necessary APIs.`);
-  console.log(`${indent}Enable Translate and App Engine Flex APIs? [y/n, blank=y]`);
+  console.log(`3. Enable Translate and App Engine Flex APIs. [enter to continue]`);
   if (await askYN()) {
-    console.log(`${indent}Enabling...`);
+    console.log(chalk.blue(`${indent}*** Enabling... ***`));
     await gcloud(`service-management enable translate.googleapis.com`);
     await gcloud(`service-management enable appengineflex.googleapis.com`);
-    console.log(`${indent}...done.`);
+    console.log(chalk.blue(`${indent}*** ...done. ***`));
   } else {
-    console.log(`${indent}Skipping...`);
+    console.log(chalk.blue(`${indent}*** Skipping... ***`));
   }
 
   const serviceAccount = 'gcp-workshop-dev';
-  console.log(`4. Get a service account key.`);
-  console.log(`${indent}Create service account ${serviceAccount}? [y/n, blank=y]`);
+  console.log(`4. Create a service account. [enter to continue]`);
   if (await askYN()) {
-    console.log(`${indent}Creating...`);
+    console.log(chalk.blue(`${indent}*** Creating... ***`));
     await gcloud(`iam service-accounts create ${serviceAccount}`);
-    console.log(`${indent}...done`);
+    console.log(chalk.blue(`${indent}*** ...done. ***`));
   } else {
-    console.log(`${indent}Skipping service account creation...`);
+    console.log(chalk.blue(`${indent}*** Skipping service account creation... ***`));
   }
   console.log(`${indent}Download service account key? [y/n, blank=y]`);
   if (await askYN()) {
-    console.log(`${indent}Downloading service account key...`);
+    console.log(chalk.blue(`${indent}*** Downloading service account key... ***`));
     await gcloud(`iam service-accounts keys create key.json`, {
       'iam-account': `${serviceAccount}@${project}.iam.gserviceaccount.com`
     });
-    console.log(`${indent}...done. You're almost there!`);
+    console.log(chalk.blue(`${indent}*** ...done. You're almost there! ***`));
   } else {
-    console.log(`${indent}Skipping download... assuming that ${process.cwd()}/key.json exists.`);
+    console.log(chalk.blue(`${indent}*** Skipping download... assuming that ${process.cwd()}/key.json exists. ***`));
   }
 
   console.log(`5. Add your key to the environment`);

@@ -60,7 +60,8 @@ Don't worry if you don't completely understand what's happening here -- this is 
 1. Links a billing account to the project, which allows you to use Google APIs.
 1. Enables the Cloud APIs necessary for this workshop.
 1. Creates a service account, which is essentially a Google account for your application, and allows it to access the APIs.
-    * As part of this step, you'll download a key which your application will automatically be made aware of. This key is used in lieu of a password for the account.
+    * As part of this step, you'll download a key file. This key is used in lieu of a password for the account.
+1. Instructs you to add the key to your environment, which allows your application to find it.
 
 #### Using your own machine
 
@@ -142,11 +143,11 @@ original sentence and its translated version.
 1.  Navigate to your Google Cloud Functions
     [console](https://console.cloud.google.com/functions/list).
 1.  Create a new HTTP function called `case1`. Leave all options to their
-    defaults.
+defaults.
+1.  Replace the existing `package.json` with this
+[template](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/1/package_template.json).
 1.  Replace the existing `index.js` function with this
     [template](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/1/index_template.js).
-1.  Replace the existing `package.json` with this
-    [template](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/1/package_template.json).
 1.  Implement all four TODOs in `index.js`.
 1.  Test your function using the [testing
     tab](https://console.cloud.google.com/functions/details/us-central1/case1?&tab=testing)
