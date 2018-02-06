@@ -50,11 +50,11 @@ exports.helloWorld = function helloWorld(req, res) {
             res.status(200).send('' + calculateSimilarity(sentence, fullTranslation));
           })
           .catch(err => {
-            res.status(500).send(err);
+            res.status(500).send(err.message + err.stack);
           });
       })
       .catch(err => {
-        res.status(500).send(err);
+        res.status(500).send(err.message + err.stack);
       });
   }
 };
