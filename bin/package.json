@@ -1,11 +1,12 @@
 {
   "name": "create-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "Create a Google Cloud Project (with additional goodies)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": "https://github.com/TrevorEdwards/gcp-workshop",
   "keywords": [],
   "author": "",
   "license": "ISC",
