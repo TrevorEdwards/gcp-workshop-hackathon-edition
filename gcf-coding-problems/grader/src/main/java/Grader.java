@@ -96,12 +96,12 @@ public class Grader {
               HttpPost httppost = new HttpPost(gcfUrl + "/case" + caseNumber);
               ArrayList<NameValuePair> nvps = new ArrayList<>(splitCase.length - 1);
               if (caseNumber == 1) {
-                nvps.add(new BasicNameValuePair("a", splitCase[0]));
-                nvps.add(new BasicNameValuePair("b", splitCase[1]));
-                nvps.add(new BasicNameValuePair("operator", splitCase[2]));
-              } else {
                 nvps.add(new BasicNameValuePair("targetLanguage", splitCase[0]));
                 nvps.add(new BasicNameValuePair("sentence", splitCase[1]));
+              } else {
+                for (int i = 0; i < splitCase.length-1; i++){
+                  nvps.add(new BasicNameValuePair("sequence["+i+"]", splitCase[i]));
+                }
               }
 
               httppost.setEntity(new UrlEncodedFormEntity(nvps));
