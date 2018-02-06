@@ -152,7 +152,7 @@ original sentence and its translated version.
 
 ### Description
 
-In this workshop, you will implement a simple Google Cloud Function that calculates the number of triplets in a sequence. Given a sequence `s` a triplet is three indices `a`, `b`, and `c` such that `a` < `b` < `c` and `s[a]` < `s[b]` < `s[c]`.
+In this workshop, you will implement a Google Cloud Function that calculates the number of triplets in a sequence. Given a sequence `s` a triplet is three indices `a`, `b`, and `c` such that `a` < `b` < `c` and `s[a]` < `s[b]` < `s[c]`.
 
 ### Instructions
 
