@@ -119,30 +119,6 @@ It'll take a few minutes, but in the end you'll see your application deployed to
 
 __Why this works:__ A configuration file named `app.yaml` sits in your working directory. This is the config file used for Google App Engine. It contains just enough information for App Engine to know that you want to use Node.js (`runtime`) on App Engine Flex, the Docker-based version of App Engine (`flex`). See [this page](https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml) for more details.
 
-## WORKSHOP: Google Cloud Functions - Adding Numbers
-
-### Description
-
-In this workshop, you will implement a simple Google Cloud Function that adds
-two numbers.
-
-### Instructions
-
-1.  Navigate to your Google Cloud Functions
-    [console](https://console.cloud.google.com/functions/list).
-1.  Create a new HTTP function called `case1`. Leave all options to their
-    defaults.
-1.  Replace the existing `index.js` function with this
-    [template](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/1/index_template.js).
-1.  Implement the TODOs in `index.js`.
-1.  Test your function using the [testing
-    tab](https://pantheon.corp.google.com/functions/details/us-central1/case1?&tab=testing)
-    with
-    [this](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/1/test_case_1.json)
-    test case.
-1.  Do more tests as desired. Keep an eye on the scoreboard for your project!
-    Feel free to ask for help!
-
 ## WORKSHOP: Google Cloud Functions - Translate Similarity
 
 ### Description
@@ -157,15 +133,38 @@ original sentence and its translated version.
     [here](https://console.cloud.google.com/apis/api/translate.googleapis.com/overview).
 1.  Navigate to your Google Cloud Functions
     [console](https://console.cloud.google.com/functions/list).
+1.  Create a new HTTP function called `case1`. Leave all options to their
+    defaults.
+1.  Replace the existing `index.js` function with this
+    [template](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/1/index_template.js).
+1.  Replace the existing `package.json` with this
+    [template](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/1/package_template.json).
+1.  Implement all four TODOs in `index.js`.
+1.  Test your function using the [testing
+    tab](https://console.cloud.google.com/functions/details/us-central1/case1?&tab=testing)
+    with
+    [this](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/1/test_case_1.json)
+    test case.
+1.  Do more tests as desired. Keep an eye on the scoreboard for your project!
+    Feel free to ask for help!
+    
+## WORKSHOP: Google Cloud Functions - Counting Triplets
+
+### Description
+
+In this workshop, you will implement a simple Google Cloud Function that calculates the number of triplets in a sequence. Given a sequence `s` a triplet is three indices `a`, `b`, and `c` such that `a` < `b` < `c` and `s[a]` < `s[b]` < `s[c]`.
+
+### Instructions
+
+1.  Navigate to your Google Cloud Functions
+    [console](https://console.cloud.google.com/functions/list).
 1.  Create a new HTTP function called `case2`. Leave all options to their
     defaults.
 1.  Replace the existing `index.js` function with this
     [template](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/2/index_template.js).
-1.  Replace the existing `package.json` with this
-    [template](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/2/package_template.json).
-1.  Implement all four TODOs in `index.js`.
+1.  Implement both TODOs in `index.js`.
 1.  Test your function using the [testing
-    tab](https://console.cloud.google.com/functions/details/us-central1/case2?&tab=testing)
+    tab](https://pantheon.corp.google.com/functions/details/us-central1/case2?&tab=testing)
     with
     [this](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/2/test_case_1.json)
     test case.
