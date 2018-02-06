@@ -60,7 +60,8 @@ Don't worry if you don't completely understand what's happening here -- this is 
 1. Links a billing account to the project, which allows you to use Google APIs.
 1. Enables the Cloud APIs necessary for this workshop.
 1. Creates a service account, which is essentially a Google account for your application, and allows it to access the APIs.
-    * As part of this step, you'll download a key which your application will automatically be made aware of. This key is used in lieu of a password for the account.
+    * As part of this step, you'll download a key file. This key is used in lieu of a password for the account.
+1. Instructs you to add the key to your environment, which allows your application to find it.
 
 #### Using your own machine
 
