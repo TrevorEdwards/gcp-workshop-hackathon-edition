@@ -20,11 +20,12 @@ exports.helloWorld = function helloWorld(req, res) {
   if (req.body['targetLanguage'] === undefined || req.body['sentence'] === undefined) {
     res.status(400).send('Missing parameters!');
   } else {
-    console.log('Initial request:', sentence, targetLanguage);
     // Parse data into variables.
     const targetLanguage = req.body['targetLanguage'];
     // TODO(1/4): Retrieve the input `sentence` from the request body.
     const sentence = 'hello, world!';
+
+    console.log('Initial request:', sentence, targetLanguage);
 
     // TODO(2/4): Implement the calculateSimilarity function which takes two strings
     // and returns the number of indices for which they share the same character.
