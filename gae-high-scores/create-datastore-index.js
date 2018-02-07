@@ -11,6 +11,8 @@ const yaml = require('js-yaml');
     indexes: [{
       kind: ATTEMPT_KIND,
       properties: [
+        { name: 'caseNumber' },
+        { name: 'id' },
         { name: 'score', direction: 'desc' },
         { name: 'timestamp' }
       ]

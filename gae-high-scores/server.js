@@ -2,7 +2,7 @@
  * Import the modules we need to use.
  */
 
-const { ATTEMPT_KIND, PARTICIPANT_KIND } = require('./constants');
+const { ATTEMPT_KIND } = require('./constants');
 const express = require('express');
 const Datastore = require('@google-cloud/datastore');
 
@@ -23,20 +23,20 @@ const app = express();
 app.set('view engine', 'pug');
 
 app.get('/', function (request, response) {
-  response.render('index');
+  const caseFilter = request.query.case || 0;
+  response.render('index', { caseFilter });
 });
 
 app.get('/topScores', async function (request, response) {
   try {
+    const caseFilter = parseInt(request.query.case || 0);
     const incomingQuery = request.query;
-    const [participants] = await datastore.runQuery(datastore.createQuery(PARTICIPANT_KIND).end());
-    const dict = {};
-    for (let i = 0; i < participants.length; i++) {
-      dict[participants[i].id] = participants[i];
-    }
     const query = datastore.createQuery(ATTEMPT_KIND)
+      .order('id', { descending: false })
       .order('score', { descending: true })
       .order('timestamp', { descending: false })
+      .filter('caseNumber', '=', caseFilter)
+      .groupBy('id')
       .limit(incomingQuery.limit || 10) // (A || B) is equivalent to (if (A) { A } else { B })
       .end();
     let [results] = await datastore.runQuery(query);
@@ -44,7 +44,6 @@ app.get('/topScores', async function (request, response) {
     results = results.map(function mapResult(result) {
       return {
         id: result.id,
-        year: (dict[result.id] || { year: 'unknown' }).year,
         score: result.score,
         timestamp: result.timestamp
       };
