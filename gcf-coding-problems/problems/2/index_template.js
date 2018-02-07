@@ -1,7 +1,7 @@
 /**
  * Given a request with a body containing: {"sequence":[a,b,...]}
  * where sequence is an int array, returns the number of unique index triplets 
- * a,b,c in which sequence[a] < sequence[b] < sequence[c]. 
+ * a,b,c in which sequence[a] < sequence[b] < sequence[c] and a < b < c.
  * The sequence will always have at least 3 ints.
  *
  * Examples:
