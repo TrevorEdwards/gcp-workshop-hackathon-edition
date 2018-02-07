@@ -48,7 +48,7 @@ const askYN = async () => {
     console.log(`${indent}Your project ID will be of the form "cornell-gcp-2018sp-(suffix)"`);
     let suffix;
     while (!suffix) {
-      console.log(`${indent}Enter a project suffix:`);
+      console.log(`${indent}Enter a project suffix (a-z, 0-9 only):`);
       suffix = await ask();
     }
     project = `cornell-gcp-2018sp-${suffix}`;
