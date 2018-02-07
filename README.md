@@ -34,10 +34,10 @@ Navigate to Cloud Shell by clicking on the following button (outlined in red) in
 
 ![cloud shell](./doc/images/gcp-top-bar.png)
 
-If you haven't already, fork this repository first by clicking the button in the top right of this page. Then, clone it with the following command:
+Clone this repository with the following command:
 
 ```sh
-git clone https://github.com/[your-username]/gcp-workshop
+git clone https://github.com/TrevorEdwards/gcp-workshop
 ```
 
 Navigate to the repository directory:
