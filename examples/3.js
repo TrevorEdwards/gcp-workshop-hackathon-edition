@@ -1,7 +1,9 @@
-const http = require('http'); // HTTP module
+var http = require('http'); // HTTP module
 
-http.get('http://www.google.com', (res) => {
-  let buffer = '';
+var httpGet = http.get;
+
+httpGet('http://www.google.com/search?query=google%20cloud%20platform', (res) => {
+  var buffer = '';
   res.addListener('data', (data) => {
     buffer += data.toString();
   });

@@ -48,7 +48,7 @@ const askYN = async () => {
     console.log(`${indent}Your project ID will be of the form "cornell-gcp-2018sp-(suffix)"`);
     let suffix;
     while (!suffix) {
-      console.log(`${indent}Enter a project suffix:`);
+      console.log(`${indent}Enter a project suffix (a-z, 0-9 only):`);
       suffix = await ask();
     }
     project = `cornell-gcp-2018sp-${suffix}`;
@@ -86,11 +86,10 @@ const askYN = async () => {
     }
   }
 
-  console.log(`3. Enable Translate and App Engine Flex APIs. [enter to continue]`);
+  console.log(`3. Enable necessary APIs for the workshop. [enter to continue]`);
   if (await askYN()) {
     console.log(chalk.blue(`${indent}*** Enabling... ***`));
-    await gcloud(`service-management enable translate.googleapis.com`);
-    await gcloud(`service-management enable appengineflex.googleapis.com`);
+    await gcloud(`services enable --async translate.googleapis.com appengineflex.googleapis.com cloudfunctions.googleapis.com`);
     console.log(chalk.blue(`${indent}*** ...done. ***`));
   } else {
     console.log(chalk.blue(`${indent}*** Skipping... ***`));

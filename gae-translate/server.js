@@ -8,7 +8,7 @@ var express = require('express');
 var Translate = require('@google-cloud/translate');
 
 // Do some initialization.
-var translateService = new Translate();
+var translate = new Translate();
 var app = express();
 app.set('view engine', 'pug');
 
@@ -33,7 +33,7 @@ app.get('/translate', function handleTranslate(request, response) {
 
   // Translate the text. The translation itself it asynchronous because we need
   // to wait for the server to do the translation.
-  var translating = translateService.translate(
+  var translating = translate.translate(
     textToTranslate,
     languageOptions,
     // callback for when the operation is finished.

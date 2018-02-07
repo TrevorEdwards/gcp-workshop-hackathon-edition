@@ -24,6 +24,7 @@ organizes all your Google Cloud Platform resources.
     require a credit card for identification purposes.
 1.  If you cannot or do not wish to activate the free trial, ask a Googler for a
     credit key and redeem it [here](https://console.cloud.google.com/education). _Make sure you are applying it to your @cornell.edu account!_
+1.  If you have a partner, add them to your coupon's billing account as a Billing Account Administrator (Top-left menu -> Billing -> Add Members/Select a role -> Add). This will allow them to continue to the Environment section in their own console with their own project.
 
 ### Environment
 
@@ -33,10 +34,10 @@ Navigate to Cloud Shell by clicking on the following button (outlined in red) in
 
 ![cloud shell](./doc/images/gcp-top-bar.png)
 
-If you haven't already, fork this repository first by clicking the button in the top right of this page. Then, clone it with the following command:
+Clone this repository with the following command:
 
 ```sh
-git clone https://github.com/[your-username]/gcp-workshop
+git clone https://github.com/TrevorEdwards/gcp-workshop
 ```
 
 Navigate to the repository directory:
@@ -123,6 +124,8 @@ Once you've filled up the missing part and tinkered around with the code, it's t
 ```sh
 gcloud app deploy
 ```
+
+Feel free to pick any region here.
 
 It'll take a few minutes, but in the end you'll see your application deployed to a real production environment!
 
