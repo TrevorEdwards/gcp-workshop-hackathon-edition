@@ -2,8 +2,10 @@ var fs = require('fs'); // File System module
 
 function handleReadFile(err, contents) {
   if (err) {
+    console.error('=== An error occurred: ===');
     console.error(err);
   } else {
+    console.log('=== This is the file: ===');
     console.log(contents);
   }
 }

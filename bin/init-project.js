@@ -89,9 +89,9 @@ const askYN = async () => {
   console.log(`3. Enable necessary APIs for the workshop. [enter to continue]`);
   if (await askYN()) {
     console.log(chalk.blue(`${indent}*** Enabling... ***`));
-    await gcloud(`service-management enable translate.googleapis.com`);
-    await gcloud(`service-management enable appengineflex.googleapis.com`);
-    await gcloud(`service-management enable cloudfunctions.googleapis.com`);
+    await gcloud(`services enable translate.googleapis.com`);
+    await gcloud(`services enable appengineflex.googleapis.com`);
+    await gcloud(`services enable cloudfunctions.googleapis.com`);
     console.log(chalk.blue(`${indent}*** ...done. ***`));
   } else {
     console.log(chalk.blue(`${indent}*** Skipping... ***`));
