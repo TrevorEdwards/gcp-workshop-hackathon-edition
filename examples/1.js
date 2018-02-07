@@ -1,3 +1,5 @@
-const name = 'ezra';
+var jsonString = '{ "name": "Ezra", "age": 211 }';
 
-console.log(`Hello, ${name}!`);
+var parsedObject = JSON.parse(jsonString);
+
+console.log(`Hello, ${parsedObject.name}! Next year you will be ${parsedObject.age + 1}.`);
