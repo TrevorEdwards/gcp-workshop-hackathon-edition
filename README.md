@@ -125,6 +125,8 @@ Once you've filled up the missing part and tinkered around with the code, it's t
 gcloud app deploy
 ```
 
+Feel free to pick any region here.
+
 It'll take a few minutes, but in the end you'll see your application deployed to a real production environment!
 
 __Why this works:__ A configuration file named `app.yaml` sits in your working directory. This is the config file used for Google App Engine. It contains just enough information for App Engine to know that you want to use Node.js (`runtime`) on App Engine Flex, the Docker-based version of App Engine (`flex`). See [this page](https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml) for more details.
