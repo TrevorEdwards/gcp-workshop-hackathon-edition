@@ -24,6 +24,7 @@ organizes all your Google Cloud Platform resources.
     require a credit card for identification purposes.
 1.  If you cannot or do not wish to activate the free trial, ask a Googler for a
     credit key and redeem it [here](https://console.cloud.google.com/education). _Make sure you are applying it to your @cornell.edu account!_
+1.  If you have a partner, add them to your coupon's billing account as a Billing Account Administrator (Top-left menu -> Billing -> Add Members/Select a role -> Add). This will allow them to continue to the Environment section in their own console with their own project.
 
 ### Environment
 
