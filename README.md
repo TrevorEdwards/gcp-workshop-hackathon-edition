@@ -94,6 +94,8 @@ export GOOGLE_APPLICATION_CREDENTIALS="${PWD}/key.json"
 If you accidentally close your shell, you will need to navigate to the directory
 containing the key and re-run this command.
 
+If you are not using your own machine, you are done with this portion of the workshop! Feel free to relax and explore Cloud Console until the presentation resumes.
+
 #### Using your own machine
 
 Before doing the above, you'll need to download [`gcloud`](https://cloud.google.com/sdk/gcloud/) first. As an extra step, you'll need to login with:
@@ -107,6 +109,8 @@ You will also need to download and install [Node.js 8](https://nodejs.org).
 After that, you should be all set to continue as if you were running in the Cloud Shell in the instructions above.
 
 ## WORKSHOP: Writing a Cloud Translation Service in Node.js
+
+Do not continue onto this section until directed. The presentation will introduce you to Google App Engine, Node.js, and the service you are going to deploy.
 
 ### Description
 
