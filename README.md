@@ -58,10 +58,12 @@ console homepage](https://console.cloud.google.com).
 
 ### Enable APIs
 
-The top of Cloud Console has a search bar where you can look up resources, APIs,
+The top of [Cloud Console](https://console.cloud.google.com) has a search bar where you can look up resources, APIs,
 etc. Use this search bar to find and enable the following APIs:
 - Google Cloud Translation
 - App Engine Flexible Environment
+
+For more info on enabling APIs look [here](https://support.google.com/cloud/answer/6158841?hl=en).
 
 ### Create a service account
 
