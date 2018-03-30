@@ -86,12 +86,13 @@ gcloud iam service-accounts keys create key.json --iam-account=my-service-accoun
 ```
 
 Finally, export an environment variable so that processes can discover the key.
-If you accidentally close your shell, you will need to navigate to the directory
-containing the key and re-run this command:
 
 ```sh
 export GOOGLE_APPLICATION_CREDENTIALS="${PWD}/key.json"
 ```
+
+If you accidentally close your shell, you will need to navigate to the directory
+containing the key and re-run this command:
 
 #### Using your own machine
 
