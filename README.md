@@ -78,11 +78,10 @@ gcloud iam service-accounts create my-service-account
 ```
 
 Now, download the account's credentials into your Cloud Shell environment. You
-will need to replace MY\_PROJECT\_ID with your own project ID which you obtained
+will need to replace ${MY\_PROJECT\_ID} with your own project ID which you obtained
 when creating the project.
 
 ```sh
-PROJECT_ID=MY_PROJECT_ID
 gcloud iam service-accounts keys create key.json --iam-account=my-service-account@${MY_PROJECT_ID}.iam.gserviceaccount.com
 ```
 
