@@ -1,34 +1,34 @@
-# Google Cloud Platform Workshop
+# Google Cloud Platform Workshop - Hackathon Edition
 
-This repository contains workshops as part of a presentation on Google Cloud
-Platform. Use this README to follow along with the workshops. Sections will 
-be added as we progress through the workshop.
+This repository contains workshops as part of a hackathon presentation on Google Cloud
+Platform. Use this README to follow along with the workshops.
 
 ## WORKSHOP: Setting up a project
 
 ### Description
 
-In this workshop, you will create a Google Cloud Platform project. A project
+In this workshop, you will setup a billing account and create a Google Cloud Platform project. A project
 organizes all your Google Cloud Platform resources.
 
 ### Set up Billing
 
 1.  Navigate to [Cloud Console](https://console.cloud.google.com).
-1.  Sign in with a personal or @cornell.edu account.
+1.  Sign in with a personal or @\*.edu account (if it is Google-supported).
 1.  If you already have an active Google Cloud Platform trial or credit, skip
     ahead to the "Environment" section.
-1.  If you have not activated a free trial, you should see the following image:
+1.  If you have not activated a free trial, you should see an image similar to
+    the following:
     ![Free
     Trial](./doc/images/free-trial.png)
     If you would like, you can sign up for this free trial. Doing this will
     require a credit card for identification purposes.
 1.  If you cannot or do not wish to activate the free trial, ask a Googler for a
-    credit key and redeem it [here](https://console.cloud.google.com/education). _Make sure you are applying it to your @cornell.edu account!_
+    credit key and redeem it [here](https://console.cloud.google.com/education).
 1.  If you have a partner, add them to your coupon's billing account as a Billing Account Administrator (Top-left menu -> Billing -> Add Members/Select a role -> Add). This will allow them to continue to the Environment section in their own console with their own project.
 
 ### Environment
 
-You can choose to run this either in Cloud Shell __(recommended)__ or on your own machine. If you choose to run on your own machine, follow the additional instructions under "Using your own machine".
+You can choose to run this either in Cloud Shell __(strongly recommended)__ or on your own machine. If you choose to run on your own machine, follow the additional instructions under "Using your own machine".
 
 Navigate to Cloud Shell by clicking on the following button (outlined in red) in the Cloud Console:
 
@@ -37,31 +37,63 @@ Navigate to Cloud Shell by clicking on the following button (outlined in red) in
 Clone this repository with the following command:
 
 ```sh
-git clone https://github.com/TrevorEdwards/gcp-workshop
+git clone https://github.com/TrevorEdwards/gcp-workshop-hackathon-edition
 ```
 
 Navigate to the repository directory:
 
 ```sh
-cd gcp-workshop
+cd gcp-workshop-hackathon-edition
 ```
 
-Run the following interactive utility to set up billing, API access, and authentication:
+### Create a project
+
+Follow the instructions
+[here](https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project)
+to create your own project.
+
+While creating this project, you will get a project id. Note this down as you
+will need it at a later step. If you ever forget it, you can see it at the [cloud
+console homepage](https://console.cloud.google.com).
+
+### Enable APIs
+
+The top of Cloud Console has a search bar where you can look up resources, APIs,
+etc. Use this search bar to find and enable the following APIs:
+- Google Cloud Translation
+- App Engine Flexible Environment
+
+### Create a service account
+
+Service accounts are accounts which are authorized to perform actions on your
+behalf. We will need to create one in order to authenticate with Google APIs
+when running App Engine locally from Cloud Shell.
+
+To create a service account, run:
 
 ```sh
-./bin/init-project
+gcloud iam service-accounts create my-service-account
 ```
 
-__NOTE:__ This utility requires Node.js.
+Now, download the account's credentials into your Cloud Shell environment. You
+will need to replace MY\_PROJECT\_ID with your own project ID which you obtained
+when creating the project.
 
-If at any time you get stuck, re-run the command and skip the steps you have already done.
+```sh
+PROJECT_ID=MY_PROJECT_ID
+gcloud iam service-accounts keys create key.json
+--iam-account=my-service-account@${MY_PROJECT_ID}.iam.gserviceaccount.com
+```
 
-Don't worry if you don't completely understand what's happening here -- this is something you would normally do through the web UI. In essence, the script:
-1. Creates a new project, which is where your application will live.
-1. Links a billing account to the project, which allows you to use Google APIs.
-1. Enables the Cloud APIs necessary for this workshop.
-1. Creates a service account, which is essentially a Google account for your application, and allows it to access the APIs.
-    * As part of this step, you'll download a key file. This key is used in lieu of a password for the account.
+Finally, export an environment variable so that processes can discover the key.
+If you accidentally close your shell, you will need to navigate to the directory
+containing the key and re-run this command:
+
+```sh
+export GOOGLE_APPLICATION_CREDENTIALS="${PWD}/key.json"
+```
+
+
 1. Instructs you to add the key to your environment, which allows your application to find it.
 
 #### Using your own machine
@@ -86,7 +118,7 @@ app on Google App Engine (GAE) to deploy it to the world!
 
 ### Install Dependencies
 
-Navigate to the `gae-translate` directory in your terminal:
+Navigate to the `gae-translate` directory in your Cloud Shell:
 
 ```sh
 cd gae-translate
@@ -131,54 +163,13 @@ It'll take a few minutes, but in the end you'll see your application deployed to
 
 __Why this works:__ A configuration file named `app.yaml` sits in your working directory. This is the config file used for Google App Engine. It contains just enough information for App Engine to know that you want to use Node.js (`runtime`) on App Engine Flex, the Docker-based version of App Engine (`flex`). See [this page](https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml) for more details.
 
-## WORKSHOP: Google Cloud Functions - Translate Similarity
+## Learn more about GCP
 
-### Description
+If you to do more interactive demos with GCP, check out
+https://codelabs.developers.google.com/
 
-In this workshop, you will implement a Google Cloud Function which translates a
-sentence to a target language and back, then returns the similarity between the
-original sentence and its translated version.
+## About the workshop
 
-### Instructions
+This workshop is adapted from [another
+workshop](https://github.com/TrevorEdwards/gcp-workshop).
 
-1.  Enable the Google Cloud Translation API if you have not already
-    [here](https://console.cloud.google.com/apis/api/translate.googleapis.com/overview).
-1.  Navigate to your Google Cloud Functions
-    [console](https://console.cloud.google.com/functions/list).
-1.  Create a new HTTP function called `case1`. Leave all options to their
-defaults.
-1.  Replace the existing `package.json` with this
-[template](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/1/package_template.json).
-1.  Replace the existing `index.js` function with this
-    [template](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/1/index_template.js).
-1.  Implement all four TODOs in `index.js`.
-1.  Test your function using the [testing
-    tab](https://console.cloud.google.com/functions/details/us-central1/case1?&tab=testing)
-    with
-    [this](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/1/test_case_1.json)
-    test case.
-1.  Do more tests as desired. Keep an eye on the scoreboard for your project!
-    Feel free to ask for help!
-    
-## WORKSHOP: Google Cloud Functions - Counting Triplets
-
-### Description
-
-In this workshop, you will implement a Google Cloud Function that calculates the number of triplets in a sequence. Given a sequence `s` a triplet is three indices `a`, `b`, and `c` such that `a` < `b` < `c` and `s[a]` < `s[b]` < `s[c]`.
-
-### Instructions
-
-1.  Navigate to your Google Cloud Functions
-    [console](https://console.cloud.google.com/functions/list).
-1.  Create a new HTTP function called `case2`. Leave all options to their
-    defaults.
-1.  Replace the existing `index.js` function with this
-    [template](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/2/index_template.js).
-1.  Implement both TODOs in `index.js`.
-1.  Test your function using the [testing
-    tab](https://pantheon.corp.google.com/functions/details/us-central1/case2?&tab=testing)
-    with
-    [this](https://github.com/TrevorEdwards/gcp-workshop/blob/master/gcf-coding-problems/problems/2/test_case_1.json)
-    test case.
-1.  Do more tests as desired. Keep an eye on the scoreboard for your project!
-    Feel free to ask for help!
