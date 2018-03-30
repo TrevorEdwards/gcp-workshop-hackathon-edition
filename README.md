@@ -93,9 +93,6 @@ containing the key and re-run this command:
 export GOOGLE_APPLICATION_CREDENTIALS="${PWD}/key.json"
 ```
 
-
-1. Instructs you to add the key to your environment, which allows your application to find it.
-
 #### Using your own machine
 
 Before doing the above, you'll need to download [`gcloud`](https://cloud.google.com/sdk/gcloud/) first. As an extra step, you'll need to login with:
