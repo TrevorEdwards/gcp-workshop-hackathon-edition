@@ -94,7 +94,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="${PWD}/key.json"
 If you accidentally close your shell, you will need to navigate to the directory
 containing the key and re-run this command.
 
-If you are not using your own machine, you are done with this portion of the workshop! Feel free to relax and explore Cloud Console until the presentation resumes.
+You are done with this portion of the workshop! Feel free to relax and explore Cloud Console until the presentation resumes.
 
 #### Using your own machine
 
