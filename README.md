@@ -16,7 +16,7 @@ organizes all your Google Cloud Platform resources.
 1.  Sign in with a personal or @\*.edu account (if it is Google-supported).
 1.  If you already have an active Google Cloud Platform trial or credit, skip
     ahead to the "Environment" section.
-1.  If you have not activated a free trial, you should see an image similar to
+1.  If you have not activated a free trial, you should see an image similar tfo
     the following:
     ![Free
     Trial](./doc/images/free-trial.png)
@@ -85,14 +85,14 @@ when creating the project.
 gcloud iam service-accounts keys create key.json --iam-account=my-service-account@${MY_PROJECT_ID}.iam.gserviceaccount.com
 ```
 
-Finally, export an environment variable so that processes can discover the key.
+Finally, export an environment variable so that processes can discover the key:
 
 ```sh
 export GOOGLE_APPLICATION_CREDENTIALS="${PWD}/key.json"
 ```
 
 If you accidentally close your shell, you will need to navigate to the directory
-containing the key and re-run this command:
+containing the key and re-run this command.
 
 #### Using your own machine
 
