@@ -83,8 +83,7 @@ when creating the project.
 
 ```sh
 PROJECT_ID=MY_PROJECT_ID
-gcloud iam service-accounts keys create key.json
---iam-account=my-service-account@${MY_PROJECT_ID}.iam.gserviceaccount.com
+gcloud iam service-accounts keys create key.json --iam-account=my-service-account@${MY_PROJECT_ID}.iam.gserviceaccount.com
 ```
 
 Finally, export an environment variable so that processes can discover the key.
