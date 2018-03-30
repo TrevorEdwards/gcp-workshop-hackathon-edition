@@ -167,7 +167,7 @@ __Why this works:__ A configuration file named `app.yaml` sits in your working d
 
 ## Learn more about GCP
 
-If you to do more interactive demos with GCP, check out
+If you'd like to do more interactive demos with GCP, check out
 https://codelabs.developers.google.com/
 
 ## About the workshop
