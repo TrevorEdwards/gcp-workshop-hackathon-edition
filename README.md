@@ -26,6 +26,16 @@ organizes all your Google Cloud Platform resources.
     credit key and redeem it [here](https://console.cloud.google.com/education).
 1.  If you have a partner, add them to your coupon's billing account as a Billing Account Administrator (Top-left menu -> Billing -> Add Members/Select a role -> Add). This will allow them to continue to the Environment section in their own console with their own project.
 
+### Create a project
+
+Follow the instructions
+[here](https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project)
+to create your own project.
+
+While creating this project, you will get a project id. Note this down as you
+will need it at a later step. If you ever forget it, you can see it at the [cloud
+console homepage](https://console.cloud.google.com).
+
 ### Environment
 
 You can choose to run this either in Cloud Shell __(strongly recommended)__ or on your own machine. If you choose to run on your own machine, follow the additional instructions under "Using your own machine".
@@ -33,6 +43,12 @@ You can choose to run this either in Cloud Shell __(strongly recommended)__ or o
 Navigate to Cloud Shell by clicking on the following button (outlined in red) in the Cloud Console:
 
 ![cloud shell](./doc/images/gcp-top-bar.png)
+
+Note that the tab for your shell should display your new project id. If it does not, run the command:
+
+```sh
+gcloud config set project <YOUR-PROJECT-iD>
+```
 
 Clone this repository with the following command:
 
@@ -44,22 +60,6 @@ Navigate to the repository directory:
 
 ```sh
 cd gcp-workshop-hackathon-edition
-```
-
-### Create a project
-
-Follow the instructions
-[here](https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project)
-to create your own project.
-
-While creating this project, you will get a project id. Note this down as you
-will need it at a later step. If you ever forget it, you can see it at the [cloud
-console homepage](https://console.cloud.google.com).
-
-Set Cloud Shell to use your new project for its configuration:
-
-```sh
-gcloud config set project <YOUR-PROJECT-ID>
 ```
 
 ### Enable APIs
@@ -83,12 +83,10 @@ To create a service account, run:
 gcloud iam service-accounts create my-service-account
 ```
 
-Now, download the account's credentials into your Cloud Shell environment. You
-will need to replace ${MY\_PROJECT\_ID} with your own project ID which you obtained
-when creating the project.
+Now, download the account's credentials into your Cloud Shell environment.
 
 ```sh
-gcloud iam service-accounts keys create key.json --iam-account=my-service-account@${MY_PROJECT_ID}.iam.gserviceaccount.com
+gcloud iam service-accounts keys create key.json --iam-account=my-service-account@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com
 ```
 
 Finally, export an environment variable so that processes can discover the key:
