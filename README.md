@@ -56,6 +56,12 @@ While creating this project, you will get a project id. Note this down as you
 will need it at a later step. If you ever forget it, you can see it at the [cloud
 console homepage](https://console.cloud.google.com).
 
+Set Cloud Shell to use your new project for its configuration:
+
+```sh
+gcloud config set project <YOUR-PROJECT-ID>
+```
+
 ### Enable APIs
 
 The top of [Cloud Console](https://console.cloud.google.com) has a search bar where you can look up resources, APIs,
