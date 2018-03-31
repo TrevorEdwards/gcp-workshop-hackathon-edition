@@ -56,7 +56,7 @@ app.get('/list-languages', function handleListLanguages(request, response) {
    * EXERCISE -- Use translateService.getLanguages to get the list of languages
    * supported by Google Cloud Translate, and respond with that list of
    * languages. Docs:
-   * https://cloud.google.com/nodejs/docs/reference/translate/1.1.x/Translate
+   * https://cloud.google.com/nodejs/docs/reference/translate/1.1.x/Translate#getLanguages
    */
   response.send([
     { code: 'en', name: 'English' },
